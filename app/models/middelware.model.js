@@ -39,5 +39,7 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
+    
+
     return Middleware;
 }

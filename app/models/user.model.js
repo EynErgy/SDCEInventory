@@ -33,5 +33,8 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
+    // MW
+    
+
     return User;
 }
