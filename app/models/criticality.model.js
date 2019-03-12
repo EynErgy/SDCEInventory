@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
             unique: true,
             allowNull: false
         },
-        level: {
+        level:{
             type: Sequelize.STRING,
             unique: true,
             allowNull: false,
@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         description:{
             type: Sequelize.STRING,
-            unique: true,
+            unique: false,
             allowNull: false,
             comment: "Long description"
         }

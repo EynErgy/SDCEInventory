@@ -10,6 +10,8 @@ const hbs = require('hbs');
 
 const indexRouter = require('./app/routes/index');
 const userRouter = require('./app/routes/user');
+const serverRouter = require('./app/routes/server');
+const criticalityRouter = require('./app/routes/criticality');
 
 require('dotenv').config();
 
@@ -64,6 +66,8 @@ app.use('/assets/vendor/datatables.net-bs4_css', express.static(path.join(__dirn
 // routes here
 app.use('/', indexRouter);
 app.use('/user', userRouter);
+app.use('/server', serverRouter);
+app.use('/criticality', criticalityRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

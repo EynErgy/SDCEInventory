@@ -40,7 +40,7 @@ exports.findAll = (req, res) => {
     User.findAll()
         .then(Users => {
             res.send(Users);
-            console.log(Users);
+            //console.log(Users);
         }).catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occured while retrieving Users"
