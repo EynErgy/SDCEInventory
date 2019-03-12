@@ -12,6 +12,9 @@ const indexRouter = require('./app/routes/index');
 const userRouter = require('./app/routes/user');
 const serverRouter = require('./app/routes/server');
 const criticalityRouter = require('./app/routes/criticality');
+const middlewareRouter = require('./app/routes/middleware');
+const oracleRouter = require('./app/routes/oracle');
+const mssqlRouter = require('./app/routes/mssql');
 
 require('dotenv').config();
 
@@ -68,6 +71,9 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/server', serverRouter);
 app.use('/criticality', criticalityRouter);
+app.use('/middleware', middlewareRouter);
+app.use('/mssql', mssqlRouter);
+app.use('/oracle', oracleRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
