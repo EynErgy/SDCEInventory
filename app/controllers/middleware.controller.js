@@ -1,5 +1,6 @@
 const db = require('../models/models');
 const Middleware = db.middleware;
+const User = db.user;
 
 exports.create = (req, res) => {
     if (!req.body.mwName) {
@@ -31,23 +32,49 @@ exports.create = (req, res) => {
             message: "Middleware knowedIssues cannot be empty"
         });
     }
-
-    Middleware.create({
-        mwName: req.body.mwName,
-        startRequirements: req.body.startRequirements,
-        nonStdConfig: req.body.nonStdConfig,
-        dataPath: req.body.dataPath,
-        knowedIssues: req.body.knowedIssues
-    })
+    if (req.body.certificate.length > 0){
+        console.log('multi users')
+        User.findAll({where: {id: req.body.certificate}})
+        .then(users => {
+            console.log('found users: ' , users)
+            Middleware.create({
+                mwName: req.body.mwName,
+                startRequirements: req.body.startRequirements,
+                nonStdConfig: req.body.nonStdConfig,
+                dataPath: req.body.dataPath,
+                knowedIssues: req.body.knowedIssues
+            })
+            .then(middleware => {
+                console.log('adding users to mw:' , middleware, users)
+                middleware.setCertResponsibles(users)
+            })
+            .then(() => {
+                res.redirect('/middleware')
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occured while creating Middleware"
+                });
+            });
+        })
+    } else {
+        console.log('no user selected')
+        Middleware.create({
+            mwName: req.body.mwName,
+            startRequirements: req.body.startRequirements,
+            nonStdConfig: req.body.nonStdConfig,
+            dataPath: req.body.dataPath,
+            knowedIssues: req.body.knowedIssues
+        })
         .then(middleware => {
-            //res.send(middleware);
-            res.redirect('/middleware');
+            res.redirect('/middleware')
         })
         .catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occured while creating Middleware"
             });
         });
+    }
 };
 
 exports.findAll = (req, res) => {

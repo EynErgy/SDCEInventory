@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/add', function(req, res, next) {
-  res.render('middlewareAdd', {title: 'Add User'});
+  res.render('middlewareAdd', {title: 'Add User', layout:"layout-middlewareAdd"});
 });
 router.post('/add', middlewares.create);
 router.get('/all', middlewares.findAll);
