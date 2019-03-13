@@ -46,7 +46,7 @@ exports.create = (req, res) => {
             })
             .then(middleware => {
                 console.log('adding users to mw:' , middleware, users)
-                middleware.setCertResponsibles(users)
+                middleware.addCertResponsibles(users)
             })
             .then(() => {
                 res.redirect('/middleware')
