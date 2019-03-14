@@ -1,6 +1,7 @@
 const db = require('../models/models');
 const Middleware = db.middleware;
 const User = db.user;
+const Server = db.server;
 
 exports.create = (req, res) => {
     if (!req.body.mwName) {
@@ -32,11 +33,16 @@ exports.create = (req, res) => {
             message: "Middleware knowedIssues cannot be empty"
         });
     }
+    if (req.body.servers.length < 1) {
+        res.status(400).send({
+            message: "Select at least one server"
+        });
+    }
     if (req.body.certificate.length > 0){
-        console.log('multi users')
+        //console.log('multi users')
         User.findAll({where: {id: req.body.certificate}})
         .then(users => {
-            console.log('found users: ' , users)
+            //console.log('found users: ' , users)
             Middleware.create({
                 mwName: req.body.mwName,
                 startRequirements: req.body.startRequirements,
@@ -47,6 +53,19 @@ exports.create = (req, res) => {
             .then(middleware => {
                 console.log('adding users to mw:' , middleware, users)
                 middleware.addCertResponsibles(users)
+                return middleware;
+            })
+            .then(middleware =>{
+                Server.findAll({where: {id: req.body.servers}})
+                .then(servers => {
+                    console.log("adding servers to MW: ", middleware, servers);
+                    middleware.addServers(servers);
+                })
+                .catch(err =>{
+                    res.status(500).send({
+                        message: err.message || "Some error occured while creating Middleware (serveradd)"
+                    });
+                })
             })
             .then(() => {
                 res.redirect('/middleware')

@@ -19,15 +19,18 @@ const mssqlRouter = require('./app/routes/mssql');
 require('dotenv').config();
 
 const db = require('./app/models/models');
-/* for debug only, recreate tables
-sequelize.sync({ force: true }).then( () => {
+// for debug only, recreate tables
+/*
+db.sequelize.sync({ force: true }).then( () => {
     console.log('Sync DB');
 });
 */
 // Prod
+
 db.sequelize.sync().then( () => {
     console.log('Sync DB');
 });
+
 //
 
 const app = express();

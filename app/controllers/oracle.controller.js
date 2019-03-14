@@ -1,5 +1,6 @@
 const db = require('../models/models');
 const Oracle = db.oracle;
+const Server = db.server;
 
 exports.create = (req, res) => {
     
@@ -49,19 +50,32 @@ exports.create = (req, res) => {
         });
     }
 
-    Oracle.create({
-        bch: req.body.bch,
-        dbName: req.body.dbName,
-        environment: req.body.environment,
-        appAccount: req.body.appAccount,
-        ownerAccount: req.body.ownerAccount,
-        dbJobs: req.body.dbJobs,
-        crontabs: req.body.crontabs,
-        knowedIssues: req.body.knowedIssues,
-        frequenRequests: req.body.frequenRequests
-    })
-        .then(oracle => {
-            //res.send(oracle);
+    if (req.body.server.length == 1){
+        //console.log('multi users')
+        Server.findOne({where: {id: req.body.server}})
+        .then(server => {
+            Oracle.create({
+                bch: req.body.bch,
+                dbName: req.body.dbName,
+                environment: req.body.environment,
+                appAccount: req.body.appAccount,
+                ownerAccount: req.body.ownerAccount,
+                dbJobs: req.body.dbJobs,
+                crontabs: req.body.crontabs,
+                knowedIssues: req.body.knowedIssues,
+                frequenRequests: req.body.frequenRequests
+            })
+            .then(oracle => {
+                oracle.setServer(server)
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occured while creating Oracle"
+                });
+            });
+        })
+        .then(() => {
+            //res.send(mssql);
             res.redirect('/oracle');
         })
         .catch(err => {
@@ -69,6 +83,11 @@ exports.create = (req, res) => {
                 message: err.message || "Some error occured while creating Oracle"
             });
         });
+    } else {
+        return res.status(400).send({
+            message: "Select one server"
+        });
+    }
 };
 
 exports.findAll = (req, res) => {

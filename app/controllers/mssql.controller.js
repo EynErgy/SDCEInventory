@@ -1,5 +1,6 @@
 const db = require('../models/models');
 const Mssql = db.mssql;
+const Server = db.server;
 
 exports.create = (req, res) => {
     if (!req.body.bch) {
@@ -50,17 +51,30 @@ exports.create = (req, res) => {
         });
     }
 
-    Mssql.create({
-        bch: req.body.bch,
-        dbName: req.body.dbName,
-        environment: req.body.environment,
-        appAccount: req.body.appAccount,
-        dbJobs: req.body.dbJobs,
-        knowedIssues: req.body.knowedIssues,
-        frequenRequests: req.body.frequenRequests,
-        specificities: req.body.specificities
-    })
-        .then(mssql => {
+    if (req.body.server.length == 1){
+        //console.log('multi users')
+        Server.findOne({where: {id: req.body.server}})
+        .then(server => {
+            Mssql.create({
+                bch: req.body.bch,
+                dbName: req.body.dbName,
+                environment: req.body.environment,
+                appAccount: req.body.appAccount,
+                dbJobs: req.body.dbJobs,
+                knowedIssues: req.body.knowedIssues,
+                frequenRequests: req.body.frequenRequests,
+                specificities: req.body.specificities
+            })
+            .then(mssql => {
+                mssql.setServer(server)
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occured while creating Mssql"
+                });
+            });
+        })
+        .then(() => {
             //res.send(mssql);
             res.redirect('/mssql');
         })
@@ -69,6 +83,11 @@ exports.create = (req, res) => {
                 message: err.message || "Some error occured while creating Mssql"
             });
         });
+    } else {
+        return res.status(400).send({
+            message: "Select one server"
+        });
+    }
 };
 
 exports.findAll = (req, res) => {

@@ -26,26 +26,10 @@ no">
         $(document).ready(function () {
             $.ajax({
                 type: "get",
-                url: "/user/all",
-                dataType: 'json',
-                success: function (obj, textstatus) {
-                    let dropdown = $('#certificate-list');
-                    dropdown.empty();
-                    //dropdown.append('<option selected="true" disabled>Choose users</option>');
-                    $.each(obj, function(key, entry){
-                        console.log(entry);
-                        dropdown.append($('<option></option>').attr('value', entry.id).text(entry.fullName));
-                    })
-                },
-                error: function (obj, textstatus) {
-                    alert(obj.msg);
-                }
-            });
-            $.ajax({
-                type: "get",
                 url: "/server/all",
                 dataType: 'json',
                 success: function (obj, textstatus) {
+                    //console.log(entry)
                     let dropdown = $('#servers-list');
                     dropdown.empty();
                     //dropdown.append('<option selected="true" disabled>Choose users</option>');
