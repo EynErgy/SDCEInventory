@@ -91,7 +91,9 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Mssql.findAll()
+    Mssql.findAll({
+        include: [Server]
+    })
         .then(Mssqls => {
             res.send(Mssqls);
             //console.log(Mssqls);

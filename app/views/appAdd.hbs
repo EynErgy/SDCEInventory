@@ -1,0 +1,13 @@
+<form method="POST" action="/user/add">
+    <table class="table table-bordered table-striped">
+    <tr><td>Application Name</td><td><input type="text" name="appName" /></td></tr>
+    <tr><td>Purpose</td><td><input type="email" name="appPurpose" /></td></tr>
+    <tr><td>Users Location</td><td><input type="text" name="usersLocation" /></td></tr>
+    <tr><td>Business Impact</td><td><input type="text" name="businessImpact" /></td></tr>
+    <tr><td>Technical Details</td><td><input type="text" name="technicalDetails" /></td></tr>
+    <tr><td>Middlewares</td><td><select id="middlewares-list" name="middlewares" multiple="multiple"></td></tr>
+    <tr><td>MS Sql DBs</td><td><select id="mssqls-list" name="mssqls" multiple="multiple"></td></tr>
+    <tr><td>Oracle DBs</td><td><select id="oracles-list" name="oracles" multiple="multiple"></td></tr>
+    <tr><td></td><td><input type="submit" /></td></tr>
+  </table>
+</form>

@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const hbs = require('hbs');
 
 const indexRouter = require('./app/routes/index');
+const appRouter = require('./app/routes/app');
 const userRouter = require('./app/routes/user');
 const serverRouter = require('./app/routes/server');
 const criticalityRouter = require('./app/routes/criticality');
@@ -71,6 +72,7 @@ app.use('/assets/vendor/datatables.net-bs4_css', express.static(path.join(__dirn
 
 // routes here
 app.use('/', indexRouter);
+app.use('/app', appRouter);
 app.use('/user', userRouter);
 app.use('/server', serverRouter);
 app.use('/criticality', criticalityRouter);

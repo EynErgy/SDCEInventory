@@ -91,7 +91,9 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Oracle.findAll()
+    Oracle.findAll({
+        include: [Server]
+    })
         .then(Oracles => {
             res.send(Oracles);
             //console.log(Oracles);

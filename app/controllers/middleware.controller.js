@@ -97,10 +97,17 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Middleware.findAll()
+    Middleware.findAll({
+        include: [{
+            model: Server,
+            as: "Servers",
+            through: {}
+        }],
+        raw: true
+    })
         .then(Middlewares => {
+            console.log(Middlewares);
             res.send(Middlewares);
-            //console.log(Middlewares);
         }).catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occured while retrieving Middlewares"

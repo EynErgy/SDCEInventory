@@ -25,7 +25,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             comment: "Users Location"
         },
-        buseinessImpact:{
+        businessImpact:{
             type: Sequelize.STRING,
             unique: false,
             allowNull: false,
