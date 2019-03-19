@@ -98,5 +98,6 @@ app.use(function (req, res, next) {
 
 // start app
 app.listen(process.env.PORT, () => {
-    console.log("API server running on port " + process.env.PORT);
+    console.log("Server in " + process.env.NODE_ENV + " mode");
+    console.log("SDCE Docs server running on port " + process.env.PORT);
 });

@@ -48,7 +48,7 @@ exports.create = (req, res) => {
     .then(app => {
         // get mw mssql and oracle
         //console.log("MSSQL: " + req.body.mssqls)
-        if (req.body.mssqls.length > 0) {
+        if (typeof req.body.mssqls !== 'undefined') {
             MSSQL.findAll({where: {id: req.body.mssqls}})
             .then(mssqls => {
                 console.log("adding mssql: " + mssqls)
@@ -65,7 +65,7 @@ exports.create = (req, res) => {
     .then(app => {
         // get mw mssql and oracle
         //console.log("ORACLE: " + req.body.oracles)
-        if (req.body.oracles.length > 0) {
+        if (typeof req.body.oracles !== 'undefined') {
             Oracle.findAll({where: {id: req.body.oracles}})
             .then(oracles => {
                 console.log("adding oracle: " + oracles)
@@ -82,7 +82,7 @@ exports.create = (req, res) => {
     .then(app => {
         // get mw mssql and oracle
         //console.log("MW: " + req.body.middlewares)
-        if (req.body.middlewares.length > 0) {
+        if (typeof req.body.middlewares !== 'undefined') {
             Middleware.findAll({where: {id: req.body.middlewares}})
             .then(middlewares => {
                 console.log("adding mw: " + middlewares)

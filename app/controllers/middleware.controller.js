@@ -33,7 +33,7 @@ exports.create = (req, res) => {
             message: "Middleware knowedIssues cannot be empty"
         });
     }
-    if (req.body.certificate.length > 0){
+    if (typeof req.body.certificate !== 'undefined'){
         //console.log('multi users')
         User.findAll({where: {id: req.body.certificate}})
         .then(users => {
