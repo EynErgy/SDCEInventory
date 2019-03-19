@@ -33,11 +33,6 @@ exports.create = (req, res) => {
             message: "Middleware knowedIssues cannot be empty"
         });
     }
-    if (req.body.servers.length < 1) {
-        res.status(400).send({
-            message: "Select at least one server"
-        });
-    }
     if (req.body.certificate.length > 0){
         //console.log('multi users')
         User.findAll({where: {id: req.body.certificate}})
@@ -56,10 +51,10 @@ exports.create = (req, res) => {
                 return middleware;
             })
             .then(middleware =>{
-                Server.findAll({where: {id: req.body.servers}})
-                .then(servers => {
-                    console.log("adding servers to MW: ", middleware, servers);
-                    middleware.addServers(servers);
+                Server.findOne({where: {id: req.body.server}})
+                .then(server => {
+                    console.log("adding server to MW: ", middleware, server);
+                    middleware.setServer(server);
                 })
                 .catch(err =>{
                     res.status(500).send({
@@ -98,15 +93,10 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     Middleware.findAll({
-        include: [{
-            model: Server,
-            as: "Servers",
-            through: {}
-        }],
-        raw: true
+        include: [Server]
     })
         .then(Middlewares => {
-            console.log(Middlewares);
+            //console.log(Middlewares);
             res.send(Middlewares);
         }).catch(err => {
             res.status(500).send({

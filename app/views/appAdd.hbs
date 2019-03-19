@@ -1,8 +1,11 @@
-<form method="POST" action="/user/add">
+<form method="POST" action="/app/add">
     <table class="table table-bordered table-striped">
     <tr><td>Application Name</td><td><input type="text" name="appName" /></td></tr>
-    <tr><td>Purpose</td><td><input type="email" name="appPurpose" /></td></tr>
+    <tr><td>Purpose</td><td><input type="text" name="appPurpose" /></td></tr>
+    <tr><td>Owners</td><td><select id="owners-list" name="owners" multiple="multiple"></td></tr>
+    <tr><td>Supports</td><td><select id="supports-list" name="supports" multiple="multiple"></td></tr>
     <tr><td>Users Location</td><td><input type="text" name="usersLocation" /></td></tr>
+    <tr><td>Criticality</td><td><select id="criticalities-list" name="criticality"></td></tr>
     <tr><td>Business Impact</td><td><input type="text" name="businessImpact" /></td></tr>
     <tr><td>Technical Details</td><td><input type="text" name="technicalDetails" /></td></tr>
     <tr><td>Middlewares</td><td><select id="middlewares-list" name="middlewares" multiple="multiple"></td></tr>
