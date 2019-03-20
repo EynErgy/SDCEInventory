@@ -10,8 +10,8 @@ const docx = require('docx');
 
 exports.test = (req, res) => {
     const doc = new docx.Document();
-    const heading = new docx.Paragraph().center();
-    const title = new docx.TextRun("Test Doc").heading1();
+    const heading = new docx.Paragraph().center().heading1();
+    const title = new docx.TextRun("Test Doc");
     const paragraph1 = new docx.Paragraph();
     const textOne = new docx.TextRun("Hello world").bold();
     const paragraph2 = new docx.Paragraph()
