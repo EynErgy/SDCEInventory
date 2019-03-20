@@ -4,5 +4,6 @@ const docx = require('../controllers/docx.controller');
 
 /* GET home page. */
 router.get('/test', docx.test);
+router.get('/sdce', docx.sdce);
 
 module.exports = router;
