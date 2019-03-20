@@ -50,7 +50,7 @@ exports.create = (req, res) => {
         });
     }
 
-    if (req.body.server.length == 1){
+    if (typeof req.body.server !== 'undefined'){
         //console.log('multi users')
         Server.findOne({where: {id: req.body.server}})
         .then(server => {

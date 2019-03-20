@@ -97,7 +97,7 @@ exports.create = (req, res) => {
         return app;
     })
     .then(app => {
-        if (req.body.owners.length > 0) {
+        if (typeof req.body.owners !== 'undefined') {
             console.log("Owners: " + req.body.owners)
             User.findAll({where: {id: req.body.owners}})
             .then(users => {
@@ -112,7 +112,7 @@ exports.create = (req, res) => {
         return app;
     })
     .then(app => {
-        if (req.body.supports.length > 0) {
+        if (typeof req.body.supports !== 'undefined') {
             console.log("Supports" + req.body.supports)
             User.findAll({where: {id: req.body.supports}})
             .then(users => {
@@ -127,7 +127,7 @@ exports.create = (req, res) => {
         return app;
     })
     .then(app => {
-        if (req.body.criticality.length == 1) {
+        if (typeof req.body.criticality !== 'undefined') {
             console.log("Criticality: " + req.body.criticality)
             Criticality.findOne({where: {id: req.body.criticality}})
             .then(criticality => {
