@@ -16,6 +16,7 @@ const criticalityRouter = require('./app/routes/criticality');
 const middlewareRouter = require('./app/routes/middleware');
 const oracleRouter = require('./app/routes/oracle');
 const mssqlRouter = require('./app/routes/mssql');
+const docxRouter = require('./app/routes/docx');
 
 require('dotenv').config();
 
@@ -79,6 +80,7 @@ app.use('/criticality', criticalityRouter);
 app.use('/middleware', middlewareRouter);
 app.use('/mssql', mssqlRouter);
 app.use('/oracle', oracleRouter);
+app.use('/docx', docxRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
