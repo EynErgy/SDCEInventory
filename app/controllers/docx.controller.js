@@ -25,35 +25,35 @@ exports.test = (req, res) => {
 
     const packer = new docx.Packer();
     packer.toBase64String(doc)
-    .then(output => {
-        res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
-    res.send(Buffer.from(output, "base64"));
-    })
+        .then(output => {
+            res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
+            res.send(Buffer.from(output, "base64"));
+        })
 }
 
 exports.sdce = (req, res) => {
 
-const doc = new docx.Document();
+    const doc = new docx.Document();
 
-// content App portion
-doc.createParagraph("SDCE Daimler . Application questionnaire for managed services");
-doc.createParagraph("Introduction");
-doc.createParagraph("Purpose of this document is to document the mapping and interconnection between application and underlying instances in the SDCE Daimler environment. In addition to enclose details about any used specific configuration on the MW/OS/DB level.");
-doc.createParagraph("Details about application group");
-doc.createParagraph("Application name:");
-doc.createParagraph("Application owner (Daimler):");
-doc.createParagraph("Application support contact details:");
-doc.createParagraph("Purpose of the application:");
-doc.createParagraph("Location of application users:");
-doc.createParagraph("Criticality:");
-doc.createParagraph("Business impact description:");
-doc.createParagraph("Technical description of the application:");
-doc.createParagraph("List of servers from application bundle:");
+    // content App portion
+    doc.createParagraph("SDCE Daimler . Application questionnaire for managed services");
+    doc.createParagraph("Introduction");
+    doc.createParagraph("Purpose of this document is to document the mapping and interconnection between application and underlying instances in the SDCE Daimler environment. In addition to enclose details about any used specific configuration on the MW/OS/DB level.");
+    doc.createParagraph("Details about application group");
+    doc.createParagraph("Application name:");
+    doc.createParagraph("Application owner (Daimler):");
+    doc.createParagraph("Application support contact details:");
+    doc.createParagraph("Purpose of the application:");
+    doc.createParagraph("Location of application users:");
+    doc.createParagraph("Criticality:");
+    doc.createParagraph("Business impact description:");
+    doc.createParagraph("Technical description of the application:");
+    doc.createParagraph("List of servers from application bundle:");
 
     const packer = new docx.Packer();
     packer.toBase64String(doc)
-    .then(output => {
-        res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
-    res.send(Buffer.from(output, "base64"));
-    })
+        .then(output => {
+            res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
+            res.send(Buffer.from(output, "base64"));
+        })
 }
