@@ -10,12 +10,18 @@ const docx = require('docx');
 
 exports.test = (req, res) => {
     const doc = new docx.Document();
-    const paragraph = new docx.Paragraph("Test doc");
+    const heading = new docx.Paragraph().center();
+    const title = new docx.TextRun("Test Doc").heading1();
+    const paragraph1 = new docx.Paragraph();
     const textOne = new docx.TextRun("Hello world").bold();
+    const paragraph2 = new docx.Paragraph()
     const textTwo = new docx.TextRun("Hello again");
-    paragraph.addRun(textOne);
-    paragraph.addRun(textTwo);
-    doc.addParagraph(paragraph);
+    heading.addRun(title);
+    paragraph1.addRun(textOne);
+    paragraph2.addRun(textTwo);
+    doc.addParagraph(heading);
+    doc.addParagraph(paragraph1);
+    doc.addParagraph(paragraph2);
 
     const packer = new docx.Packer();
     packer.toBase64String(doc)
