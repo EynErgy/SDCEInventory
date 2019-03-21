@@ -33,74 +33,77 @@ exports.test = (req, res) => {
 
 exports.sdce = (req, res) => {
 
-const appId = req.params.appId;
-console.log("App id: " + req.params.appId);
-	App.findOne({where: {id: appId}})
-	.then(app => {
-		console.log("App: " + app.appName);
-		return createSDCEDoc(app)
-	})
-	.then(doc => {
-		 const packer = new docx.Packer();
-    packer.toBase64String(doc)
-        .then(output => {
-            res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
-            res.send(Buffer.from(output, "base64"));
+    const appId = req.params.appId;
+    console.log("App id: " + req.params.appId);
+    App.findOne({ where: { id: appId } })
+        .then(app => {
+            console.log("App: " + app.appName);
+            return createSDCEDoc(app)
         })
-	})
-	.catch(err => {
-		res.status(500).send({ message: err.message || "error"
-	})
-	})
+        .then(doc => {
+            const packer = new docx.Packer();
+            packer.toBase64String(doc)
+                .then(output => {
+                    res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
+                    res.send(Buffer.from(output, "base64"));
+                })
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "error"
+            })
+        })
 }
 
 function createSDCEDoc(app) {
-	 const doc = new docx.Document({
-creator: "Nicolas Rosa",
-description: "SDCE Application Questionaire V2.0",
-title: "Application " + app.appName
-});
+    const doc = new docx.Document({
+        creator: "Nicolas Rosa",
+        description: "SDCE Application Questionaire V2.0",
+        title: "Application " + app.appName
+    });
 
-//  style
-doc.Styles.createParagraphStyle("Title", "TS Title Style")
-.basedOn("Normal")
-.next("Normal")
-.color("E20074")
-.size(56)
-.font("Tele-GroteskNor")
+    //  style
+    doc.Styles.createParagraphStyle("Title", "TS Title Style")
+        .basedOn("Normal")
+        .next("Normal")
+        .color("E20074")
+        .size(56)
+        .font("Tele-GroteskNor")
 
-doc.Styles.createParagraphStyle("Heading1", "TS Heading1 Style")
-.basedOn("Normal")
-.next("Normal")
-.color("E20074")
-.size(38)
-.font("Tele-GroteskNor")
-.bold()
+    doc.Styles.createParagraphStyle("Heading1", "TS Heading1 Style")
+        .basedOn("Normal")
+        .next("Normal")
+        .color("E20074")
+        .size(38)
+        .font("Tele-GroteskNor")
+        .bold()
 
-doc.Styles.createParagraphStyle("Normal", "TS Normal Style")
-.basedOn("Normal")
-.next("Normal")
-.size(22)
-.font("Calibri")
-.spacing({line: 276})
+    doc.Styles.createParagraphStyle("Normal", "TS Normal Style")
+        .basedOn("Normal")
+        .next("Normal")
+        .size(22)
+        .font("Calibri")
+        .spacing({ line: 276 })
 
     // content App portion
     doc.createParagraph("SDCE Daimler - Application questionnaire for managed services").title();
     doc.createParagraph("Introduction").heading1();
-const tabText = new docx.TextRun("Purpose of this document is to document the mapping and interconnection between application and underlying instances in the SDCE Daimler environment. In addition to enclose details about any used specific configuration on the MW/OS/DB level.").tab();
-const tabpara = new docx.Paragraph().leftTabStop(1000);
-tabpara.addRun(tabText);
-doc.addParagraph(tabpara);
-doc.createParagraph("Details about application group").heading1();
+    const tabText = new docx.TextRun("Purpose of this document is to document the mapping and interconnection between application and underlying instances in the SDCE Daimler environment. In addition to enclose details about any used specific configuration on the MW/OS/DB level.").tab();
+    const tabpara = new docx.Paragraph().leftTabStop(1000);
+    tabpara.addRun(tabText);
+    doc.addParagraph(tabpara);
+    doc.createParagraph("Details about application group").heading1();
     doc.createParagraph("Application name:");
-	doc.createTable({rows: 2, columns: 2})
-	.getCell(1, 1)
-	.addParagraph(new docx.Paragraph(app.appName))
-	.Borders
-	.addTopBorder(BorderStyle.SINGLE, 1, "black")
+    doc.createTable(2, 2)
+        .getCell(1, 1)
+        .addContent(new docx.Paragraph(app.appName))
+        /*
+        .Borders
+        .addTopBorder(BorderStyle.SINGLE, 1, "black")
         .addBottomBorder(BorderStyle.SINGLE, 1, "black")
         .addStartBorder(BorderStyle.SINGLE, 1, "black")
         .addEndBorder(BorderStyle.SINGLE, 1, "black")
+        */
     doc.createParagraph("Application owner (Daimler):");
     doc.createParagraph("Application support contact details:");
     doc.createParagraph("Purpose of the application:");
@@ -109,6 +112,6 @@ doc.createParagraph("Details about application group").heading1();
     doc.createParagraph("Business impact description:");
     doc.createParagraph("Technical description of the application:");
     doc.createParagraph("List of servers from application bundle:");
-	return doc;
+    return doc;
 }
-	
+
