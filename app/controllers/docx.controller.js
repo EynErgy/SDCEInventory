@@ -21,7 +21,8 @@ exports.sdce = (req, res) => {
     var zip = new JSZip(template);
     var doc = new DocxTemplater();
     doc.loadZip(zip);
-
+    const appId = req.params.appId;
+    console.log("App id: " + req.params.appId);
     App.findOne({ where: { id: appId } })
         .then(app => {
             console.log("App: " + app.appName);
