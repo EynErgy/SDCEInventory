@@ -27,7 +27,11 @@ exports.sdce = (req, res) => {
         .then(app => {
             console.log("App: " + app.appName);
             doc.setData({
-                App_Name: app.appName
+                App_Name: app.appName,
+                App_Purpose: app.purpose,
+                App_UsersLocation: app.usersLocation,
+                App_BusinessImpact: app.businessImpact,
+                App_TechnicalDetails: app.technicalDetails
             });
             try {
                 doc.render();
