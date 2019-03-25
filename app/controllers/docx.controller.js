@@ -26,11 +26,11 @@ exports.sdce = (req, res) => {
     App.findOne({ where: { id: appId } ,
         include: [
             {model: Criticality},
-            {model: Server},
-            {model Middleware},
-            {model: MSSQL},
-            {Model: Oracle},
-            {model: User}
+            {model: Middleware, as: 'Middlewares'},
+            {model: MSSQL, as: 'MSSQLs'},
+            {Model: Oracle, as: 'Oracles'},
+            {model: User, as: 'ApplicationOwners'},
+            {model: User, as: 'ApplicationSupports'}
         ]
     })
         .then(app => {
