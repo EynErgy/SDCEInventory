@@ -41,14 +41,14 @@ exports.sdce = (req, res) => {
 			servers.append({
 				Server_Name: middleware.server.serverName,
 				ServerDescription: 'not implemented',
-				Server_Functionality:
+				Server_Functionality: 'not implemented',
 				Server_Environment: middleware.server.environment,
 				Server_VLAN: middleware.server.vlanID,
 				Server_StartUp: 'not implemented',
 				Server_IP: middleware.server.ipAddress,
 				Server_Platform: middleware.server.platform
-			})
-		}
+			});
+		});
                 doc.setData({
                 App_Name: app.appName,
                 App_Purpose: app.purpose,
@@ -56,7 +56,7 @@ exports.sdce = (req, res) => {
                 App_BusinessImpact: app.businessImpact,
                 App_TechnicalDetails: app.technicalDetails,
                 Criticality: app.criticality.level,
-		Servers: servers
+		        Servers: servers
             });
             try {
                 doc.render();
