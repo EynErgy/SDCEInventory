@@ -26,6 +26,7 @@ exports.sdce = (req, res) => {
     App.findOne({ where: { id: appId } })
         .then(app => {
             console.log("App: " + app.appName);
+            console.log(app);
             doc.setData({
                 App_Name: app.appName,
                 App_Purpose: app.purpose,
