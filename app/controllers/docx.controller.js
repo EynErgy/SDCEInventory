@@ -36,9 +36,11 @@ exports.sdce = (req, res) => {
         .then(app => {
             console.log("App: " + app.appName);
             console.log(app.Oracles);
-		var servers = [];
+        var servers = [];
+        var owners = [];
+        var supports = [];
 		app.Middlewares.forEach(middleware => {
-			servers.append({
+			servers.push({
 				Server_Name: middleware.server.serverName,
 				ServerDescription: 'not implemented',
 				Server_Functionality: 'not implemented',
@@ -48,7 +50,45 @@ exports.sdce = (req, res) => {
 				Server_IP: middleware.server.ipAddress,
 				Server_Platform: middleware.server.platform
 			});
-		});
+        });
+        app.MSSQLs.forEach(mssql => {
+			servers.push({
+				Server_Name: mssql.server.serverName,
+				ServerDescription: 'not implemented',
+				Server_Functionality: 'not implemented',
+				Server_Environment: mssql.server.environment,
+				Server_VLAN: mssql.server.vlanID,
+				Server_StartUp: 'not implemented',
+				Server_IP: mssql.server.ipAddress,
+				Server_Platform: mssql.server.platform
+			});
+        });
+        app.Oracles.forEach(oracle => {
+			servers.push({
+				Server_Name: oracle.server.serverName,
+				ServerDescription: 'not implemented',
+				Server_Functionality: 'not implemented',
+				Server_Environment: oracle.server.environment,
+				Server_VLAN: oracle.server.vlanID,
+				Server_StartUp: 'not implemented',
+				Server_IP: oracle.server.ipAddress,
+				Server_Platform: oracle.server.platform
+			});
+        });
+        app.Owners.forEach(user => {
+            owners.push({
+                Owner_Name: user.fullName,
+                Owner_Email: user.email,
+                Owner_Phone: user.phone
+            });
+        });
+        app.Supports.forEach(user => {
+            supports.push({
+                Support_Name: user.fullName,
+                Support_Email: user.email,
+                Support_Phone: user.phone
+            });
+        });
                 doc.setData({
                 App_Name: app.appName,
                 App_Purpose: app.purpose,
@@ -56,7 +96,9 @@ exports.sdce = (req, res) => {
                 App_BusinessImpact: app.businessImpact,
                 App_TechnicalDetails: app.technicalDetails,
                 Criticality: app.criticality.level,
-		        Servers: servers
+                Servers: servers,
+                Owners: owners,
+                Supports: supports
             });
             try {
                 doc.render();
