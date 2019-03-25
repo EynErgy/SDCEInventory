@@ -22,20 +22,26 @@ exports.sdce = (req, res) => {
     var doc = new DocxTemplater();
     doc.loadZip(zip);
 
-    doc.setData({
-        App_Name: 'Test App'
-    });
-    try {
-        doc.render();
-    }
-    catch (error) {
-        console.log(error);
-        throw error;
-    }
-    const buf = doc.getZip()
-                .generate({type: 'base64'})
-    res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
+    App.findOne({ where: { id: appId } })
+        .then(app => {
+            console.log("App: " + app.appName);
+            doc.setData({
+                App_Name: app.appName
+            });
+            try {
+                doc.render();
+            }
+            catch (error) {
+                console.log(error);
+                throw error;
+            }
+            return doc.getZip()
+            .generate({type: 'base64'})
+        })
+        .then(buf => {
+            res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
     res.send(Buffer.from(buf, "base64"));
+        })
 }   
 /*
     const appId = req.params.appId;
