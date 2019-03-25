@@ -23,7 +23,11 @@ exports.sdce = (req, res) => {
     doc.loadZip(zip);
     const appId = req.params.appId;
     console.log("App id: " + req.params.appId);
-    App.findOne({ where: { id: appId } })
+    App.findOne({ where: { id: appId } ,
+        include: [
+            {model: Criticality}
+        ]
+    })
         .then(app => {
             console.log("App: " + app.appName);
             console.log(app);
