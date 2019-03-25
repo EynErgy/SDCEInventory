@@ -37,6 +37,9 @@ exports.sdce = (req, res) => {
             console.log("App: " + app.appName);
             console.log(app.Oracles);
         var servers = [];
+        var middlewares = [];
+        var oracles = [];
+        var mssqls = [];
         var owners = [];
         var supports = [];
 		app.Middlewares.forEach(middleware => {
