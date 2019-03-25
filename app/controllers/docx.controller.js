@@ -31,7 +31,8 @@ exports.sdce = (req, res) => {
                 App_Purpose: app.purpose,
                 App_UsersLocation: app.usersLocation,
                 App_BusinessImpact: app.businessImpact,
-                App_TechnicalDetails: app.technicalDetails
+                App_TechnicalDetails: app.technicalDetails,
+                Criticality: app.criticality.level
             });
             try {
                 doc.render();
