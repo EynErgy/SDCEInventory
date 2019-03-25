@@ -6,33 +6,38 @@ const Oracle = db.oracle;
 const Middleware = db.middleware;
 const User = db.user;
 const Criticality = db.criticality;
-const docx = require('docx');
+const JSZip = require('jszip');
+const DocxTemplater = require('docxtemplater');
+const fs = require('fs');
+const path = require('path');
 
 exports.test = (req, res) => {
-    const doc = new docx.Document();
-    const heading = new docx.Paragraph().center().heading1();
-    const title = new docx.TextRun("Test Doc");
-    const paragraph1 = new docx.Paragraph();
-    const textOne = new docx.TextRun("Hello world").bold();
-    const paragraph2 = new docx.Paragraph()
-    const textTwo = new docx.TextRun("Hello again");
-    heading.addRun(title);
-    paragraph1.addRun(textOne);
-    paragraph2.addRun(textTwo);
-    doc.addParagraph(heading);
-    doc.addParagraph(paragraph1);
-    doc.addParagraph(paragraph2);
-
-    const packer = new docx.Packer();
-    packer.toBase64String(doc)
-        .then(output => {
-            res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
-            res.send(Buffer.from(output, "base64"));
-        })
+    
 }
 
 exports.sdce = (req, res) => {
+    console.log('Start generating doc')
+    const template = fs.readFileSync(path.resolve(__dirname,'../../templates/','SDCE-Template-V2.docx'));
+    var zip = new JSZip(template);
+    var doc = new DocxTemplater();
+    doc.loadZip(zip);
 
+    doc.setData({
+        App_Name: 'Test App'
+    });
+    try {
+        doc.render();
+    }
+    catch (error) {
+        console.log(error);
+        throw error;
+    }
+    const buf = doc.getZip()
+                .generate({type: 'base64'})
+    res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
+    res.send(Buffer.from(buf, "base64"));
+}   
+/*
     const appId = req.params.appId;
     console.log("App id: " + req.params.appId);
     App.findOne({ where: { id: appId } })
@@ -97,13 +102,6 @@ function createSDCEDoc(app) {
     doc.createTable(2, 2)
         .getCell(1, 1)
         .addContent(new docx.Paragraph(app.appName))
-        /*
-        .Borders
-        .addTopBorder(BorderStyle.SINGLE, 1, "black")
-        .addBottomBorder(BorderStyle.SINGLE, 1, "black")
-        .addStartBorder(BorderStyle.SINGLE, 1, "black")
-        .addEndBorder(BorderStyle.SINGLE, 1, "black")
-        */
     doc.createParagraph("Application owner (Daimler):");
     doc.createParagraph("Application support contact details:");
     doc.createParagraph("Purpose of the application:");
@@ -114,4 +112,4 @@ function createSDCEDoc(app) {
     doc.createParagraph("List of servers from application bundle:");
     return doc;
 }
-
+*/
