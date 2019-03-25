@@ -25,7 +25,12 @@ exports.sdce = (req, res) => {
     console.log("App id: " + req.params.appId);
     App.findOne({ where: { id: appId } ,
         include: [
-            {model: Criticality}
+            {model: Criticality},
+            {model: Server},
+            {model Middleware},
+            {model: MSSQL},
+            {Model: Oracle},
+            {model: User}
         ]
     })
         .then(app => {
