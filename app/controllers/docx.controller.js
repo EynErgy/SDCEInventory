@@ -26,23 +26,37 @@ exports.sdce = (req, res) => {
     App.findOne({ where: { id: appId } ,
         include: [
             {model: Criticality},
-            {model: Middleware, as: 'Middlewares'},
-            {model: MSSQL, as: 'MSSQLs'},
-            {Model: Oracle, as: 'Oracles'},
-            {model: User, as: 'ApplicationOwners'},
-            {model: User, as: 'ApplicationSupports'}
+            {model: Middleware, as: 'Middlewares', include: [Server]},
+            {model: MSSQL, as: 'MSSQLs', include: [Server]},
+            {model: Oracle, as: 'Oracles', include: [Server]},
+            {model: User, as: 'Owners'},
+            {model: User, as: 'Supports'}
         ]
     })
         .then(app => {
             console.log("App: " + app.appName);
-            console.log(app);
-            doc.setData({
+            console.log(app.Oracles);
+		var servers = [];
+		app.Middlewares.forEach(middleware => {
+			servers.append({
+				Server_Name: middleware.server.serverName,
+				ServerDescription: 'not implemented',
+				Server_Functionality:
+				Server_Environment: middleware.server.environment,
+				Server_VLAN: middleware.server.vlanID,
+				Server_StartUp: 'not implemented',
+				Server_IP: middleware.server.ipAddress,
+				Server_Platform: middleware.server.platform
+			})
+		}
+                doc.setData({
                 App_Name: app.appName,
                 App_Purpose: app.purpose,
                 App_UsersLocation: app.usersLocation,
                 App_BusinessImpact: app.businessImpact,
                 App_TechnicalDetails: app.technicalDetails,
-                Criticality: app.criticality.level
+                Criticality: app.criticality.level,
+		Servers: servers
             });
             try {
                 doc.render();
