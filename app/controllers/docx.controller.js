@@ -58,7 +58,6 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: middleware.server.ipAddress,
                         Server_Platform: middleware.server.platform,
-                        isMiddleware: true,
                         middlewares: [{Middleware_Name: middleware.mwName}]
                     });
                 }
@@ -82,7 +81,6 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: mssql.server.ipAddress,
                         Server_Platform: mssql.server.platform,
-                        isMSSQL: true,
                         mssqls_dbs: [{MSSQL_DBName: mssql.dbName}]
                     });
                 }
@@ -106,7 +104,6 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: oracle.server.ipAddress,
                         Server_Platform: oracle.server.platform,
-                        isOracle: true,
                         oracles_dbs: [{Oracle_DBName: oracle.dbName, Oracle_AppAccount: oracle.appAccount}]
                     });
                 }
@@ -141,7 +138,7 @@ exports.sdce = (req, res) => {
                 doc.render();
             }
             catch (error) {
-                console.log(error);
+                console.log(JSON.stringify(error));
                 throw error;
             }
             return doc.getZip()
