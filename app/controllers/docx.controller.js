@@ -45,7 +45,13 @@ exports.sdce = (req, res) => {
                     for (var i = 0; i < servers.length; i++) {
                         if (servers[i].Server_Name === middleware.server.serverName) {
                             console.log("add property");
-                            servers[i].middlewares.push({Middleware_Name: middleware.mwName});
+                            servers[i].middlewares.push({
+                                Middleware_Name: middleware.mwName,
+                                Middleware_StartRequirements: middleware.startRequirements,
+                                Middleware_NonStdConfigs: middleware.nonStdConfig,
+                                Middleware_DataPath: middleware.dataPath,
+                                Middleware_KnownedErrors: middleware.knownedErrors
+                            });
                         }
                     }
                 } else {
@@ -58,7 +64,13 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: middleware.server.ipAddress,
                         Server_Platform: middleware.server.platform,
-                        middlewares: [{Middleware_Name: middleware.mwName}]
+                        middlewares: [{
+                            Middleware_Name: middleware.mwName,
+                            Middleware_StartRequirements: middleware.startRequirements,
+                            Middleware_NonStdConfigs: middleware.nonStdConfig,
+                            Middleware_DataPath: middleware.dataPath,
+                            Middleware_KnownedErrors: middleware.knownedErrors
+                        }]
                     });
                 }
             });
@@ -68,7 +80,16 @@ exports.sdce = (req, res) => {
                     for (var i = 0; i < servers.length; i++) {
                         if (servers[i].Server_Name === mssql.server.serverName) {
                             console.log("add property");
-                            servers[i].mssqls_dbs.push({MSSQL_DBName: mssql.dbName})
+                            servers[i].mssqls_dbs.push({ 
+                                MSSQL_DBName: mssql.dbName,
+                                MSSQL_BCH: mssql.bch,
+                                MSSQL_Environment: mssql.environment,
+                                MSSQL_AppAccount: mssql.appAccount,
+                                MSSQL_DBJobs: mssql.dbJobs,
+                                MSSQL_KnownedIssues: mssql.knowedIssues,
+                                MSSQL_FrequentRequests: mssql.frequenRequests,
+                                MSSQL_Specificities: mssql.specificities
+                            })
                         }
                     }
                 } else {
@@ -81,7 +102,16 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: mssql.server.ipAddress,
                         Server_Platform: mssql.server.platform,
-                        mssqls_dbs: [{MSSQL_DBName: mssql.dbName}]
+                        mssqls_dbs: [{ 
+                            MSSQL_DBName: mssql.dbName,
+                            MSSQL_BCH: mssql.bch,
+                            MSSQL_Environment: mssql.environment,
+                            MSSQL_AppAccount: mssql.appAccount,
+                            MSSQL_DBJobs: mssql.dbJobs,
+                            MSSQL_KnownedIssues: mssql.knowedIssues,
+                            MSSQL_FrequentRequests: mssql.frequenRequests,
+                            MSSQL_Specificities: mssql.specificities
+                        }]
                     });
                 }
             });
@@ -91,7 +121,17 @@ exports.sdce = (req, res) => {
                     for (var i = 0; i < servers.length; i++) {
                         if (servers[i].Server_Name === oracle.server.serverName) {
                             console.log("add property");
-                            servers[i].oracles_dbs.push({Oracle_DBName: oracle.dbName, Oracle_AppAccount: oracle.appAccount})
+                            servers[i].oracles_dbs.push({ 
+                                Oracle_DBName: oracle.dbName, 
+                                Oracle_AppAccount: oracle.appAccount,
+                                Oracle_Environment: oracle.environment,
+                                Oracle_OwnerAccount: oracle.ownerAccount,
+                                Oracle_DBJobs: oracle.dbJobs,
+                                Oracle_Crontabs: oracle.crontabs,
+                                Oracle_KnownedIssues: oracle.knowedIssues,
+                                Oracle_FrequentRequests: oracle.frequenRequests,
+                                Oracle_BCH: oracle.bch
+                            })
                         }
                     }
                 } else {
@@ -104,7 +144,17 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: oracle.server.ipAddress,
                         Server_Platform: oracle.server.platform,
-                        oracles_dbs: [{Oracle_DBName: oracle.dbName, Oracle_AppAccount: oracle.appAccount}]
+                        oracles_dbs: [{ 
+                            Oracle_DBName: oracle.dbName, 
+                            Oracle_AppAccount: oracle.appAccount,
+                            Oracle_Environment: oracle.environment,
+                            Oracle_OwnerAccount: oracle.ownerAccount,
+                            Oracle_DBJobs: oracle.dbJobs,
+                            Oracle_Crontabs: oracle.crontabs,
+                            Oracle_KnownedIssues: oracle.knowedIssues,
+                            Oracle_FrequentRequests: oracle.frequenRequests,
+                            Oracle_BCH: oracle.bch
+                        }]
                     });
                 }
             });
