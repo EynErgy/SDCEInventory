@@ -45,7 +45,7 @@ exports.sdce = (req, res) => {
                     for (var i = 0; i < servers.length; i++) {
                         if (servers[i].Server_Name === middleware.server.serverName) {
                             console.log("add property");
-                            servers[i].isTest = true;
+                            servers[i].middlewares.push({Middleware_Name: middleware.mwName});
                         }
                     }
                 } else {
@@ -58,7 +58,8 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: middleware.server.ipAddress,
                         Server_Platform: middleware.server.platform,
-                        isMiddleware: true
+                        isMiddleware: true,
+                        middlewares: [{Middleware_Name: middleware.mwName}]
                     });
                 }
             });
@@ -68,7 +69,7 @@ exports.sdce = (req, res) => {
                     for (var i = 0; i < servers.length; i++) {
                         if (servers[i].Server_Name === mssql.server.serverName) {
                             console.log("add property");
-                            servers[i].isTest = true;
+                            servers[i].mssqls_dbs.push({MSSQL_DBName: mssql.dbName})
                         }
                     }
                 } else {
@@ -81,7 +82,8 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: mssql.server.ipAddress,
                         Server_Platform: mssql.server.platform,
-                        isMSSQL: true
+                        isMSSQL: true,
+                        mssqls_dbs: [{MSSQL_DBName: mssql.dbName}]
                     });
                 }
             });
@@ -91,7 +93,7 @@ exports.sdce = (req, res) => {
                     for (var i = 0; i < servers.length; i++) {
                         if (servers[i].Server_Name === oracle.server.serverName) {
                             console.log("add property");
-                            servers[i].oracles_db.push({Oracle_DBName: oracle.dbName, Oracle_AppAccount: oracle.appAccount})
+                            servers[i].oracles_dbs.push({Oracle_DBName: oracle.dbName, Oracle_AppAccount: oracle.appAccount})
                         }
                     }
                 } else {
