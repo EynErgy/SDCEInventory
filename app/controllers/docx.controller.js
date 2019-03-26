@@ -37,12 +37,12 @@ exports.sdce = (req, res) => {
             console.log("App: " + app.appName);
             console.log(app.Oracles);
         var servers = [];
-        var middlewares = [];
-        var oracles = [];
-        var mssqls = [];
         var owners = [];
         var supports = [];
 		app.Middlewares.forEach(middleware => {
+            if (servers.filter(server => (server.Server_Name === middleware.server.serverName))){
+                console.log('mw server allreday present')
+            }
 			servers.push({
 				Server_Name: middleware.server.serverName,
 				ServerDescription: 'not implemented',
@@ -51,10 +51,13 @@ exports.sdce = (req, res) => {
 				Server_VLAN: middleware.server.vlanID,
 				Server_StartUp: 'not implemented',
 				Server_IP: middleware.server.ipAddress,
-				Server_Platform: middleware.server.platform
+				Server_Platform: middleware.server.platform,
 			});
         });
         app.MSSQLs.forEach(mssql => {
+            if (servers.filter(server => (server.Server_Name === mssql.server.serverName))){
+                console.log('mssql server allreday present')
+            }
 			servers.push({
 				Server_Name: mssql.server.serverName,
 				ServerDescription: 'not implemented',
@@ -67,6 +70,9 @@ exports.sdce = (req, res) => {
 			});
         });
         app.Oracles.forEach(oracle => {
+            if (servers.filter(server => (server.Server_Name === oracle.server.serverName))){
+                console.log('oracle server allreday present')
+            }
 			servers.push({
 				Server_Name: oracle.server.serverName,
 				ServerDescription: 'not implemented',
