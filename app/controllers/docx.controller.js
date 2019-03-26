@@ -35,14 +35,19 @@ exports.sdce = (req, res) => {
     })
         .then(app => {
             console.log("App: " + app.appName);
-            console.log(app.Oracles);
         var servers = [];
         var owners = [];
         var supports = [];
 		app.Middlewares.forEach(middleware => {
-            if (servers.filter(server => (server.Server_Name === middleware.server.serverName))){
-                console.log('mw server allreday present')
-            }
+            if (servers.find(server => {return server.Server_Name === middleware.server.serverName})){
+                console.log('mw server allreday present ' + middleware.server.serverName)
+        	 for (var i = 0; i < servers.length; i++){
+                        if (servers[i].Server_Name === middleware.server.serverName){
+                                console.log("add property");
+                                servers[i].isTest = true;
+                        }
+                } 
+	   } else {
 			servers.push({
 				Server_Name: middleware.server.serverName,
 				ServerDescription: 'not implemented',
@@ -52,12 +57,20 @@ exports.sdce = (req, res) => {
 				Server_StartUp: 'not implemented',
 				Server_IP: middleware.server.ipAddress,
 				Server_Platform: middleware.server.platform,
+				isMiddleware: true
 			});
+	}
         });
         app.MSSQLs.forEach(mssql => {
-            if (servers.filter(server => (server.Server_Name === mssql.server.serverName))){
-                console.log('mssql server allreday present')
-            }
+            if (servers.find(server => {return server.Server_Name === mssql.server.serverName})){
+                console.log('mssql server allreday present ' + mssql.server.serverName)
+        	 for (var i = 0; i < servers.length; i++){
+                        if (servers[i].Server_Name === mssql.server.serverName){
+                                console.log("add property");
+                                servers[i].isTest = true;
+                        }
+                } 
+	   } else {
 			servers.push({
 				Server_Name: mssql.server.serverName,
 				ServerDescription: 'not implemented',
@@ -66,13 +79,21 @@ exports.sdce = (req, res) => {
 				Server_VLAN: mssql.server.vlanID,
 				Server_StartUp: 'not implemented',
 				Server_IP: mssql.server.ipAddress,
-				Server_Platform: mssql.server.platform
+				Server_Platform: mssql.server.platform,
+				isMSSQL: true
 			});
+	}
         });
         app.Oracles.forEach(oracle => {
-            if (servers.filter(server => (server.Server_Name === oracle.server.serverName))){
-                console.log('oracle server allreday present')
-            }
+            if (servers.find(server => {return server.Server_Name === oracle.server.serverName})){
+                console.log('oracle server allreday present ' + oracle.server.serverName)
+		for (var i = 0; i < servers.length; i++){
+			if (servers[i].Server_Name === oracle.server.serverName){
+                                console.log("add property");
+                                servers[i].isTest = true;
+                        }
+		}
+            } else {
 			servers.push({
 				Server_Name: oracle.server.serverName,
 				ServerDescription: 'not implemented',
@@ -81,8 +102,10 @@ exports.sdce = (req, res) => {
 				Server_VLAN: oracle.server.vlanID,
 				Server_StartUp: 'not implemented',
 				Server_IP: oracle.server.ipAddress,
-				Server_Platform: oracle.server.platform
+				Server_Platform: oracle.server.platform,
+				isOracle: true
 			});
+	}
         });
         app.Owners.forEach(user => {
             owners.push({
@@ -109,6 +132,7 @@ exports.sdce = (req, res) => {
                 Owners: owners,
                 Supports: supports
             });
+		console.log(JSON.stringify(servers))
             try {
                 doc.render();
             }
