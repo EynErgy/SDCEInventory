@@ -43,6 +43,7 @@ exports.sdce = (req, res) => {
             var owners = [];
             var supports = [];
             app.Middlewares.forEach(middleware => {
+                console.log(middleware)
                 var certResps = [];
                 for (var i = 0; i < middleware.CertResponsibles.length; i++){
 			console.log("found: " + middleware.CertResponsibles[i].fullName);
@@ -81,11 +82,12 @@ exports.sdce = (req, res) => {
                         Server_UsersRequirements: middleware.server.usersRequirements,
                         middlewares: [{
                             Middleware_Name: middleware.mwName,
-                            Middleware_StartRequirements: middleware.startRequirements,
-                            Middleware_NonStdConfigs: middleware.nonStdConfig,
+                            MiddleWare_StartRequirements: middleware.startRequirements,
+                            Middleware_nonStdConfigs: middleware.nonStdConfig,
                             Middleware_DataPath: middleware.dataPath,
                             Middleware_KnownedErrors: middleware.knownedErrors,
-                            Middleware_Connections: middleware.connections
+                            Middleware_Connections: middleware.connections,
+                            Middleware_Certificates: certResps.join(', ')
                         }]
                     });
                 }
