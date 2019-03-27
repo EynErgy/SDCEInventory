@@ -69,6 +69,24 @@ module.exports = (sequelize, Sequelize) => {
             unique: false,
             allowNull: false,
             comment: "Special admin group"
+        },
+        description: {
+            type: Sequelize.STRING,
+            unique: false,
+            allowNull: false,
+            comment: "Description"
+        },
+        functionality: {
+            type: Sequelize.STRING,
+            unique: false,
+            allowNull: false,
+            comment: "Functionality"
+        },
+        startup: {
+            type: Sequelize.STRING,
+            unique: false,
+            allowNull: false,
+            comment: "Startup Order"
         }
     });
 

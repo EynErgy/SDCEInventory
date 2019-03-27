@@ -40,6 +40,10 @@ exports.sdce = (req, res) => {
             var owners = [];
             var supports = [];
             app.Middlewares.forEach(middleware => {
+                var certResps = [];
+                for (var i = 0; i < middleware.certResponsibles; i++){
+                    certResps.push(certResponsibles[i].fullName)
+                }
                 if (servers.find(server => { return server.Server_Name === middleware.server.serverName })) {
                     console.log('mw server allreday present ' + middleware.server.serverName)
                     for (var i = 0; i < servers.length; i++) {
@@ -51,24 +55,26 @@ exports.sdce = (req, res) => {
                                 Middleware_NonStdConfigs: middleware.nonStdConfig,
                                 Middleware_DataPath: middleware.dataPath,
                                 Middleware_KnownedErrors: middleware.knownedErrors,
-                                Middleware_Connections: middleware.connections
+                                Middleware_Connections: middleware.connections,
+                                Middleware_Certificates: certResps.join(', ')
                             });
                         }
                     }
                 } else {
                     servers.push({
                         Server_Name: middleware.server.serverName,
-                        ServerDescription: 'not implemented',
-                        Server_Functionality: 'not implemented',
+                        Server_Description: middleware.server.description,
+                        Server_Functionality: middleware.server.functionality,
                         Server_Environment: middleware.server.environment,
                         Server_VLAN: middleware.server.vlanID,
-                        Server_StartUp: 'not implemented',
+                        Server_StartUp: middleware.server.startup,
                         Server_IP: middleware.server.ipAddress,
                         Server_Platform: middleware.server.platform,
                         Server_Monitoring: middleware.server.monitoring,
                         Server_Services: middleware.server.services,
                         Server_SchedulledJobs: middleware.server.schedulledJobs,
                         Server_AdminGroup: middleware.server.adminGroup,
+                        Server_UsersRequirements: middleware.server.usersRequirements,
                         middlewares: [{
                             Middleware_Name: middleware.mwName,
                             Middleware_StartRequirements: middleware.startRequirements,
@@ -101,17 +107,18 @@ exports.sdce = (req, res) => {
                 } else {
                     servers.push({
                         Server_Name: mssql.server.serverName,
-                        ServerDescription: 'not implemented',
-                        Server_Functionality: 'not implemented',
+                        Server_Description: mssql.server.description,
+                        Server_Functionality: mssql.server.functionality,
                         Server_Environment: mssql.server.environment,
                         Server_VLAN: mssql.server.vlanID,
-                        Server_StartUp: 'not implemented',
+                        Server_StartUp: mssql.server.startup,
                         Server_IP: mssql.server.ipAddress,
                         Server_Platform: mssql.server.platform,
                         Server_Monitoring: mssql.server.monitoring,
                         Server_Services: mssql.server.services,
                         Server_SchedulledJobs: mssql.server.schedulledJobs,
                         Server_AdminGroup: mssql.server.adminGroup,
+                        Server_UsersRequirements: mssql.server.usersRequirements,
                         mssqls_dbs: [{ 
                             MSSQL_DBName: mssql.dbName,
                             MSSQL_BCH: mssql.bch,
@@ -147,17 +154,18 @@ exports.sdce = (req, res) => {
                 } else {
                     servers.push({
                         Server_Name: oracle.server.serverName,
-                        ServerDescription: 'not implemented',
-                        Server_Functionality: 'not implemented',
+                        Server_Description: oracle.server.description,
+                        Server_Functionality: oracle.server.functionality,
                         Server_Environment: oracle.server.environment,
                         Server_VLAN: oracle.server.vlanID,
-                        Server_StartUp: 'not implemented',
+                        Server_StartUp: oracle.server.startup,
                         Server_IP: oracle.server.ipAddress,
                         Server_Platform: oracle.server.platform,
                         Server_Monitoring: oracle.server.monitoring,
                         Server_Services: oracle.server.services,
                         Server_SchedulledJobs: oracle.server.schedulledJobs,
                         Server_AdminGroup: oracle.server.adminGroup,
+                        Server_UsersRequirements: oracle.server.usersRequirements,
                         oracles_dbs: [{ 
                             Oracle_DBName: oracle.dbName, 
                             Oracle_AppAccount: oracle.appAccount,

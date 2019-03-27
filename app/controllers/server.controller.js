@@ -50,6 +50,24 @@ exports.create = (req, res) => {
         });
     }
 
+    if (!req.body.description) {
+        return res.status(400).send({
+            message: "Description cannot be empty"
+        });
+    }
+
+    if (!req.body.functionality) {
+        return res.status(400).send({
+            message: "Functionality cannot be empty"
+        });
+    }
+
+    if (!req.body.startup) {
+        return res.status(400).send({
+            message: "Startup Order cannot be empty"
+        });
+    }
+
     Server.create({
         serverName: req.body.serverName,
         environment: req.body.environment,
@@ -60,7 +78,10 @@ exports.create = (req, res) => {
         services: req.body.services,
         schedulledJobs: req.body.schedulledJobs,
         usersRequirements: req.body.usersRequirements,
-        adminGroup: req.body.adminGroup
+        adminGroup: req.body.adminGroup,
+        description: req.body.description,
+        functionality: req.body.functionality,
+        startup: req.body.startup
     })
         .then(server => {
             //res.send(server);
