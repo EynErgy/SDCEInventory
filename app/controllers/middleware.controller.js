@@ -33,6 +33,13 @@ exports.create = (req, res) => {
             message: "Middleware knowedIssues cannot be empty"
         });
     }
+
+    if (!req.body.connections) {
+        return res.status(400).send({
+            message: "Middleware connections cannot be empty"
+        });
+    }
+
     if (typeof req.body.certificate !== 'undefined'){
         //console.log('multi users')
         User.findAll({where: {id: req.body.certificate}})
@@ -43,7 +50,8 @@ exports.create = (req, res) => {
                 startRequirements: req.body.startRequirements,
                 nonStdConfig: req.body.nonStdConfig,
                 dataPath: req.body.dataPath,
-                knowedIssues: req.body.knowedIssues
+                knowedIssues: req.body.knowedIssues,
+                connections: req.body.connections
             })
             .then(middleware => {
                 console.log('adding users to mw:' , middleware, users)

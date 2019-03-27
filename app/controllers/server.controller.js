@@ -20,12 +20,47 @@ exports.create = (req, res) => {
         });
     }
 
+    if (!req.body.monitoring) {
+        return res.status(400).send({
+            message: "Monitoring cannot be empty"
+        });
+    }
+
+    if (!req.body.services) {
+        return res.status(400).send({
+            message: "Services cannot be empty"
+        });
+    }
+
+    if (!req.body.schedulledJobs) {
+        return res.status(400).send({
+            message: "Schedulled Jobs cannot be empty"
+        });
+    }
+
+    if (!req.body.usersRequirements) {
+        return res.status(400).send({
+            message: "Users Requirement cannot be empty"
+        });
+    }
+
+    if (!req.body.adminGroup) {
+        return res.status(400).send({
+            message: "Admin Group cannot be empty"
+        });
+    }
+
     Server.create({
         serverName: req.body.serverName,
         environment: req.body.environment,
         vlanID: req.body.vlanID,
         ipAddress: req.body.ipAddress,
-        platform: req.body.platform
+        platform: req.body.platform,
+        monitoring: req.body.monitoring,
+        services: req.body.services,
+        schedulledJobs: req.body.schedulledJobs,
+        usersRequirements: req.body.usersRequirements,
+        adminGroup: req.body.adminGroup
     })
         .then(server => {
             //res.send(server);

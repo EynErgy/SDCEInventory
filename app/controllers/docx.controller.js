@@ -50,7 +50,8 @@ exports.sdce = (req, res) => {
                                 Middleware_StartRequirements: middleware.startRequirements,
                                 Middleware_NonStdConfigs: middleware.nonStdConfig,
                                 Middleware_DataPath: middleware.dataPath,
-                                Middleware_KnownedErrors: middleware.knownedErrors
+                                Middleware_KnownedErrors: middleware.knownedErrors,
+                                Middleware_Connections: middleware.connections
                             });
                         }
                     }
@@ -64,12 +65,17 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: middleware.server.ipAddress,
                         Server_Platform: middleware.server.platform,
+                        Server_Monitoring: middleware.server.monitoring,
+                        Server_Services: middleware.server.services,
+                        Server_SchedulledJobs: middleware.server.schedulledJobs,
+                        Server_AdminGroup: middleware.server.adminGroup,
                         middlewares: [{
                             Middleware_Name: middleware.mwName,
                             Middleware_StartRequirements: middleware.startRequirements,
                             Middleware_NonStdConfigs: middleware.nonStdConfig,
                             Middleware_DataPath: middleware.dataPath,
-                            Middleware_KnownedErrors: middleware.knownedErrors
+                            Middleware_KnownedErrors: middleware.knownedErrors,
+                            Middleware_Connections: middleware.connections
                         }]
                     });
                 }
@@ -102,6 +108,10 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: mssql.server.ipAddress,
                         Server_Platform: mssql.server.platform,
+                        Server_Monitoring: middleware.server.monitoring,
+                        Server_Services: middleware.server.services,
+                        Server_SchedulledJobs: middleware.server.schedulledJobs,
+                        Server_AdminGroup: middleware.server.adminGroup,
                         mssqls_dbs: [{ 
                             MSSQL_DBName: mssql.dbName,
                             MSSQL_BCH: mssql.bch,
@@ -144,6 +154,10 @@ exports.sdce = (req, res) => {
                         Server_StartUp: 'not implemented',
                         Server_IP: oracle.server.ipAddress,
                         Server_Platform: oracle.server.platform,
+                        Server_Monitoring: middleware.server.monitoring,
+                        Server_Services: middleware.server.services,
+                        Server_SchedulledJobs: middleware.server.schedulledJobs,
+                        Server_AdminGroup: middleware.server.adminGroup,
                         oracles_dbs: [{ 
                             Oracle_DBName: oracle.dbName, 
                             Oracle_AppAccount: oracle.appAccount,

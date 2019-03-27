@@ -36,6 +36,12 @@ module.exports = (sequelize, Sequelize) => {
             unique: false,
             allowNull: false,
             comment: "Frequent issues"
+        },
+        connections: {
+            type: Sequelize.STRING,
+            unique: false,
+            allowNull: false,
+            comment: "Connections to other MW/DB"
         }
     });
 
