@@ -59,7 +59,7 @@ exports.sdce = (req, res) => {
                                 Middleware_StartRequirements: middleware.startRequirements,
                                 Middleware_NonStdConfigs: middleware.nonStdConfig,
                                 Middleware_DataPath: middleware.dataPath,
-                                Middleware_KnownedErrors: middleware.knownedErrors,
+                                Middleware_KnownedErrors: middleware.knowedIssues,
                                 Middleware_Connections: middleware.connections,
                                 Middleware_Certificates: certResps.join(', ')
                             });
@@ -85,7 +85,7 @@ exports.sdce = (req, res) => {
                             MiddleWare_StartRequirements: middleware.startRequirements,
                             Middleware_nonStdConfigs: middleware.nonStdConfig,
                             Middleware_DataPath: middleware.dataPath,
-                            Middleware_KnownedErrors: middleware.knownedErrors,
+                            Middleware_KnownedErrors: middleware.knowedIssues,
                             Middleware_Connections: middleware.connections,
                             Middleware_Certificates: certResps.join(', ')
                         }]
