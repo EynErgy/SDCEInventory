@@ -27,7 +27,10 @@ exports.sdce = (req, res) => {
         where: { id: appId },
         include: [
             { model: Criticality },
-            { model: Middleware, as: 'Middlewares', include: [Server] },
+            { model: Middleware, as: 'Middlewares', include: [
+		{model: Server},
+		{model: User, as: 'CertResponsibles'}
+		] },
             { model: MSSQL, as: 'MSSQLs', include: [Server] },
             { model: Oracle, as: 'Oracles', include: [Server] },
             { model: User, as: 'Owners' },
@@ -41,8 +44,9 @@ exports.sdce = (req, res) => {
             var supports = [];
             app.Middlewares.forEach(middleware => {
                 var certResps = [];
-                for (var i = 0; i < middleware.certResponsibles; i++){
-                    certResps.push(certResponsibles[i].fullName)
+                for (var i = 0; i < middleware.CertResponsibles.length; i++){
+			console.log("found: " + middleware.CertResponsibles[i].fullName);
+                    certResps.push(middleware.CertResponsibles[i].fullName)
                 }
                 if (servers.find(server => { return server.Server_Name === middleware.server.serverName })) {
                     console.log('mw server allreday present ' + middleware.server.serverName)
@@ -205,7 +209,6 @@ exports.sdce = (req, res) => {
                 Owners: owners,
                 Supports: supports
             });
-            console.log(JSON.stringify(servers))
             try {
                 doc.render();
             }
