@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/add', function(req, res, next) {
-  res.render('userAdd', {title: 'Add User'});
+  res.render('userAdd', {title: 'Add User', action: "/user/add"});
 });
 router.post('/add', users.create);
 router.get('/edit/:userId', users.edit);

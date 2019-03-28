@@ -38,7 +38,12 @@ no">
                             { "data": "appPurpose" },
                             { "data": "usersLocation" },
                             { "data": "businessImpact" },
-                            { "data": "technicalDetails" }
+                            { "data": "technicalDetails" },
+                            {
+                                "data": "id", "render": function (data, type, row, meta) {
+                                    return '<a href="/docx/sdce/' + data + '">DOC</a>'
+                                }
+                            }
                         ]
                     });
                 },

@@ -92,3 +92,62 @@ exports.edit = (req, res) => {
             });
         })
 };
+
+exports.modify = (req, res) => {
+    if (!req.body.fullName) {
+        return res.status(400).send({
+            message: "User Full Name cannot be empty"
+        });
+    }
+
+    if (!req.body.email) {
+        return res.status(400).send({
+            message: "User eMail cannot be empty"
+        });
+    }
+
+    if (!req.body.phone) {
+        return res.status(400).send({
+            message: "User phone cannot be empty"
+        });
+    }
+
+    User.findById(req.params.userId)
+        .then(server => {
+            if (!server) {
+                return res.status(404).send({
+                    message: "Server not found with id " + req.params.userId
+                });
+            }
+            server.update({
+                fullName: req.body.fullName,
+        email: req.body.email,
+        phone: req.body.phone
+            })
+                .then(() => {
+                    res.redirect('/user');
+                })
+                .catch(err => {
+                    if (err.kind === 'ObjectId') {
+                        return res.status(404).send({
+                            message: "User not found with id " + req.params.userId
+                        });
+                    }
+
+                    return res.status(500).send({
+                        message: "Error retrieving User with id " + req.params.userId
+                    });
+                })
+        })
+        .catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "User not found with id " + req.params.userId
+                });
+            }
+
+            return res.status(500).send({
+                message: "Error retrieving User with id " + req.params.userId
+            });
+        })
+}
