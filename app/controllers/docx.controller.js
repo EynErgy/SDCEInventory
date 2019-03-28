@@ -202,7 +202,7 @@ exports.sdce = (req, res) => {
             });
             doc.setData({
                 App_Name: app.appName,
-                App_Purpose: app.purpose,
+                App_Purpose: app.appPurpose,
                 App_UsersLocation: app.usersLocation,
                 App_BusinessImpact: app.businessImpact,
                 App_TechnicalDetails: app.technicalDetails,
