@@ -8,9 +8,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/add', function(req, res, next) {
-  res.render('serverAdd', {title: 'Add Server'});
+  res.render('serverAdd', {title: 'Add Server', action: '/server/add'});
 });
 router.post('/add', servers.create);
+router.get('/edit/:serverId', servers.edit);
+router.post('/edit/:serverId', servers.modify);
 router.get('/all', servers.findAll);
 
 module.exports = router;
