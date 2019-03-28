@@ -71,7 +71,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.edit = (req, res) => {
-    Server.findById(req.params.userId)
+    User.findById(req.params.userId)
         .then(user => {
             if (!user) {
                 return res.status(404).send({
@@ -113,13 +113,13 @@ exports.modify = (req, res) => {
     }
 
     User.findById(req.params.userId)
-        .then(server => {
-            if (!server) {
+        .then(user => {
+            if (!user) {
                 return res.status(404).send({
                     message: "Server not found with id " + req.params.userId
                 });
             }
-            server.update({
+            user.update({
                 fullName: req.body.fullName,
         email: req.body.email,
         phone: req.body.phone
