@@ -137,7 +137,7 @@ exports.edit = (req, res) => {
                 message: "Server not found with id (edit display)" + req.params.serverId
             });
         }
-        res.render('serverAdd', {title: 'Edit Server', action: '/server/edit/' + serverId, server: server});
+        res.render('serverAdd', {title: 'Edit Server', action: '/server/edit/' + req.params.serverId, server: server});
     })
     .catch(err => {
         if (err.kind === 'ObjectId') {
@@ -241,10 +241,11 @@ exports.modify = (req, res) => {
             functionality: req.body.functionality,
             startup: req.body.startup
         })
-        .success(server => {
+        .then(() => {
             res.redirect('/server');
         })
         .catch(err => {
+		console.log("err: " + JSON.stringify(err))
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
                     message: "Server not found with id " + req.params.serverId
@@ -257,6 +258,7 @@ exports.modify = (req, res) => {
         })
     })
     .catch(err => {
+	 console.log("err: " + JSON.stringify(err))
         if (err.kind === 'ObjectId') {
             return res.status(404).send({
                 message: "Server not found with id " + req.params.serverId
