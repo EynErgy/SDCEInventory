@@ -130,26 +130,26 @@ exports.findOne = (req, res) => {
 
 exports.edit = (req, res) => {
     Server.findById(req.params.serverId)
-    .then( server => {
-        console.log(JSON.stringify(server))
-        if (!server) {
-            return res.status(404).send({
-                message: "Server not found with id (edit display)" + req.params.serverId
-            });
-        }
-        res.render('serverAdd', {title: 'Edit Server', action: '/server/edit/' + req.params.serverId, server: server});
-    })
-    .catch(err => {
-        if (err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "Error for server with id " + req.params.serverId
-            });
-        }
+        .then(server => {
+            console.log(JSON.stringify(server))
+            if (!server) {
+                return res.status(404).send({
+                    message: "Server not found with id (edit display)" + req.params.serverId
+                });
+            }
+            res.render('serverAdd', { title: 'Edit Server', action: '/server/edit/' + req.params.serverId, server: server });
+        })
+        .catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Error for server with id " + req.params.serverId
+                });
+            }
 
-        return res.status(500).send({
-            message: "Error retrieving Server with id (edit display)" + req.params.serverId + " err: " + JSON.stringify(err)
-        });
-    })
+            return res.status(500).send({
+                message: "Error retrieving Server with id (edit display)" + req.params.serverId + " err: " + JSON.stringify(err)
+            });
+        })
 };
 
 exports.modify = (req, res) => {
@@ -220,53 +220,51 @@ exports.modify = (req, res) => {
     }
 
     Server.findById(req.params.serverId)
-    .then( server => {
-        if (!server) {
-            return res.status(404).send({
-                message: "Server not found with id " + req.params.serverId
-            });
-        }
-        server.update({
-            serverName: req.body.serverName,
-            environment: req.body.environment,
-            vlanID: req.body.vlanID,
-            ipAddress: req.body.ipAddress,
-            platform: req.body.platform,
-            monitoring: req.body.monitoring,
-            services: req.body.services,
-            schedulledJobs: req.body.schedulledJobs,
-            usersRequirements: req.body.usersRequirements,
-            adminGroup: req.body.adminGroup,
-            description: req.body.description,
-            functionality: req.body.functionality,
-            startup: req.body.startup
-        })
-        .then(() => {
-            res.redirect('/server');
+        .then(server => {
+            if (!server) {
+                return res.status(404).send({
+                    message: "Server not found with id " + req.params.serverId
+                });
+            }
+            server.update({
+                serverName: req.body.serverName,
+                environment: req.body.environment,
+                vlanID: req.body.vlanID,
+                ipAddress: req.body.ipAddress,
+                platform: req.body.platform,
+                monitoring: req.body.monitoring,
+                services: req.body.services,
+                schedulledJobs: req.body.schedulledJobs,
+                usersRequirements: req.body.usersRequirements,
+                adminGroup: req.body.adminGroup,
+                description: req.body.description,
+                functionality: req.body.functionality,
+                startup: req.body.startup
+            })
+                .then(() => {
+                    res.redirect('/server');
+                })
+                .catch(err => {
+                    if (err.kind === 'ObjectId') {
+                        return res.status(404).send({
+                            message: "Server not found with id " + req.params.serverId
+                        });
+                    }
+
+                    return res.status(500).send({
+                        message: "Error retrieving Server with id " + req.params.serverId
+                    });
+                })
         })
         .catch(err => {
-		console.log("err: " + JSON.stringify(err))
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
                     message: "Server not found with id " + req.params.serverId
                 });
             }
-    
+
             return res.status(500).send({
                 message: "Error retrieving Server with id " + req.params.serverId
             });
         })
-    })
-    .catch(err => {
-	 console.log("err: " + JSON.stringify(err))
-        if (err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "Server not found with id " + req.params.serverId
-            });
-        }
-
-        return res.status(500).send({
-            message: "Error retrieving Server with id " + req.params.serverId
-        });
-    })
 }

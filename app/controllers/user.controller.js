@@ -69,3 +69,26 @@ exports.findOne = (req, res) => {
             });
         })
 };
+
+exports.edit = (req, res) => {
+    Server.findById(req.params.userId)
+        .then(user => {
+            if (!user) {
+                return res.status(404).send({
+                    message: "User not found with id (edit display)" + req.params.userId
+                });
+            }
+            res.render('userAdd', { title: 'Edit User', action: '/user/edit/' + req.params.userId, user: user });
+        })
+        .catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Error for user with id " + req.params.userId
+                });
+            }
+
+            return res.status(500).send({
+                message: "Error retrieving User with id (edit display)" + req.params.userId + " err: " + JSON.stringify(err)
+            });
+        })
+};

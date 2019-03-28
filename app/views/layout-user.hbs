@@ -36,7 +36,12 @@ no">
                         "columns": [
                             { "data": "fullName" },
                             {"data": "email"},
-                            { "data": "phone" }
+                            { "data": "phone" },
+                            {
+                                "data": "id", "render": function (data, type, row, meta) {
+                                    return '<a href="/server/edit/' + data + '">Edit</a>'
+                                }
+                            }
                         ]
                     });
                 },
