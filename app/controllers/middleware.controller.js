@@ -89,7 +89,19 @@ exports.create = (req, res) => {
             knowedIssues: req.body.knowedIssues,
             connections: req.body.connections
         })
-        .then(middleware => {
+        .then(middleware =>{
+            Server.findOne({where: {id: req.body.server}})
+            .then(server => {
+                console.log("adding server to MW: ", middleware, server);
+                middleware.setServer(server);
+            })
+            .catch(err =>{
+                res.status(500).send({
+                    message: err.message || "Some error occured while creating Middleware (serveradd)"
+                });
+            })
+        })
+        .then(() => {
             res.redirect('/middleware')
         })
         .catch(err => {
