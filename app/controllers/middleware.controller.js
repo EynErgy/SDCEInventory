@@ -86,7 +86,8 @@ exports.create = (req, res) => {
             startRequirements: req.body.startRequirements,
             nonStdConfig: req.body.nonStdConfig,
             dataPath: req.body.dataPath,
-            knowedIssues: req.body.knowedIssues
+            knowedIssues: req.body.knowedIssues,
+            connections: req.body.connections
         })
         .then(middleware => {
             res.redirect('/middleware')
