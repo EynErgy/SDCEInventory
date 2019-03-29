@@ -1,11 +1,11 @@
-<form method="POST" action="/middleware/add">
+<form method="POST" action="{{action}}">
     <table class="table table-bordered table-striped">
     <tr><td>Name</td><td><input type="text" name="mwName" value="{{middleware.mwName}}"/></td></tr>
-    <tr><td>Server</td><td><select id="servers-list" name="server" value="{{middleware.server.sertverName}}"></td></tr>
-    <tr><td>Start Requirements</td><td><input type="text" name="startRequirements" value="{{middleware.startRequiremenets}}"/></td></tr>
+    <tr><td>Server</td><td><select id="servers-list" name="server"></td></tr>
+    <tr><td>Start Requirements</td><td><input type="text" name="startRequirements" value="{{middleware.startRequirements}}"/></td></tr>
     <tr><td>Non Std Configs</td><td><input type="text" name="nonStdConfig" value="{{middleware.nonStdConfig}}"/></td></tr>
     <tr><td>Data Path</td><td><input type="text" name="dataPath" value="{{middleware.dataPath}}"/></td></tr>
-    <tr><td>Knowed Issues</td><td><input type="text" name="knowedIssues" value="{{middleware.knownedIssues}}"/></td></tr>
+    <tr><td>Knowed Issues</td><td><input type="text" name="knowedIssues" value="{{middleware.knowedIssues}}"/></td></tr>
     <tr><td>Connections</td><td><input type="text" name="connections" value="{{middleware.connections}}"/></td></tr>
     <tr><td>Certificate Responsible</td><td><select id="certificate-list" name="certificate" multiple="multiple"></select></td></tr>
     <tr><td></td><td><input type="submit" /></td></tr>

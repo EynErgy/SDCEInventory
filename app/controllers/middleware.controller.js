@@ -149,7 +149,12 @@ exports.findOne = (req, res) => {
 };
 
 exports.edit = (req, res) => {
-    Middleware.findById(req.params.Id)
+    Middleware.findById(req.params.Id,{
+		include: [
+			{model: Server},
+			{model: User, as: 'CertResponsibles'}
+		]
+	})
         .then(middleware => {
             console.log(JSON.stringify(middleware))
             if (!middleware) {
@@ -157,7 +162,7 @@ exports.edit = (req, res) => {
                     message: "Middleware not found with id (edit display)" + req.params.Id
                 });
             }
-            res.render('middlewareAdd', { title: 'Edit Middleware', action: '/middleware/edit/' + req.params.Id, middleware: middleware });
+            res.render('middlewareAdd', { title: 'Edit Middleware', action: '/middleware/edit/' + req.params.Id, middleware: middleware ,users: JSON.stringify(middleware.CertResponsibles) ,layout: 'layout-middlewareAdd'});
         })
         .catch(err => {
             if (err.kind === 'ObjectId') {

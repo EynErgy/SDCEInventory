@@ -40,6 +40,7 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'hbs');
+hbs.localsAsTemplateData(app);
 hbs.registerPartials(path.join(__dirname, 'app/partials'))
 
 
