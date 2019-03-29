@@ -147,3 +147,31 @@ exports.findOne = (req, res) => {
             });
         })
 };
+
+exports.edit = (req, res) => {
+    Middleware.findById(req.params.Id)
+        .then(middleware => {
+            console.log(JSON.stringify(middleware))
+            if (!middleware) {
+                return res.status(404).send({
+                    message: "Middleware not found with id (edit display)" + req.params.Id
+                });
+            }
+            res.render('middlewareAdd', { title: 'Edit Middleware', action: '/middleware/edit/' + req.params.Id, middleware: middleware });
+        })
+        .catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Error for middleware with id " + req.params.Id
+                });
+            }
+
+            return res.status(500).send({
+                message: "Error retrieving Middleware with id (edit display)" + req.params.Id + " err: " + JSON.stringify(err)
+            });
+        })
+};
+
+exports.modify = (req, res) => {
+
+};

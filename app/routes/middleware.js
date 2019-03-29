@@ -12,5 +12,7 @@ router.get('/add', function(req, res, next) {
 });
 router.post('/add', middlewares.create);
 router.get('/all', middlewares.findAll);
+router.get('/edit/:Id', middlewares.edit);
+router.post('/edit/:Id', middlewares.modify);
 
 module.exports = router;
