@@ -45,102 +45,102 @@ exports.create = (req, res) => {
         businessImpact: req.body.businessImpact,
         technicalDetails: req.body.technicalDetails
     })
-    .then(app => {
-        // get mw mssql and oracle
-        //console.log("MSSQL: " + req.body.mssqls)
-        if (typeof req.body.mssqls !== 'undefined') {
-            MSSQL.findAll({where: {id: req.body.mssqls}})
-            .then(mssqls => {
-                console.log("adding mssql: " + mssqls)
-                app.addMSSQLs(mssqls)
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occured while adding mssql"
-                    });
-                });
-            })
-        }
-        return app;
-    })
-    .then(app => {
-        // get mw mssql and oracle
-        //console.log("ORACLE: " + req.body.oracles)
-        if (typeof req.body.oracles !== 'undefined') {
-            Oracle.findAll({where: {id: req.body.oracles}})
-            .then(oracles => {
-                console.log("adding oracle: " + oracles)
-                app.addOracles(oracles)
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occured while adding oracles"
-                    });
-                });
-            })
-        }
-        return app;
-    })
-    .then(app => {
-        // get mw mssql and oracle
-        //console.log("MW: " + req.body.middlewares)
-        if (typeof req.body.middlewares !== 'undefined') {
-            Middleware.findAll({where: {id: req.body.middlewares}})
-            .then(middlewares => {
-                console.log("adding mw: " + middlewares)
-                app.addMiddlewares(middlewares)
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occured while adding middlewares"
-                    });
-                });
-            })
-        }
-        return app;
-    })
-    .then(app => {
-        if (typeof req.body.owners !== 'undefined') {
-            console.log("Owners: " + req.body.owners)
-            User.findAll({where: {id: req.body.owners}})
-            .then(users => {
-                app.addOwners(users)
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occured while adding owners"
-                    });
-                });
-            })
-        }
-        return app;
-    })
-    .then(app => {
-        if (typeof req.body.supports !== 'undefined') {
-            console.log("Supports" + req.body.supports)
-            User.findAll({where: {id: req.body.supports}})
-            .then(users => {
-                app.addSupports(users)
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occured while adding owners"
-                    });
-                });
-            })
-        }
-        return app;
-    })
-    .then(app => {
-        if (typeof req.body.criticality !== 'undefined') {
-            console.log("Criticality: " + req.body.criticality)
-            Criticality.findOne({where: {id: req.body.criticality}})
-            .then(criticality => {
-                app.setCriticality(criticality)
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occured while adding criticality"
-                    });
-                });
-            })
-        }
-        return app;
-    })
+        .then(app => {
+            // get mw mssql and oracle
+            //console.log("MSSQL: " + req.body.mssqls)
+            if (typeof req.body.mssqls !== 'undefined') {
+                MSSQL.findAll({ where: { id: req.body.mssqls } })
+                    .then(mssqls => {
+                        console.log("adding mssql: " + mssqls)
+                        app.addMSSQLs(mssqls)
+                            .catch(err => {
+                                res.status(500).send({
+                                    message: err.message || "Some error occured while adding mssql"
+                                });
+                            });
+                    })
+            }
+            return app;
+        })
+        .then(app => {
+            // get mw mssql and oracle
+            //console.log("ORACLE: " + req.body.oracles)
+            if (typeof req.body.oracles !== 'undefined') {
+                Oracle.findAll({ where: { id: req.body.oracles } })
+                    .then(oracles => {
+                        console.log("adding oracle: " + oracles)
+                        app.addOracles(oracles)
+                            .catch(err => {
+                                res.status(500).send({
+                                    message: err.message || "Some error occured while adding oracles"
+                                });
+                            });
+                    })
+            }
+            return app;
+        })
+        .then(app => {
+            // get mw mssql and oracle
+            //console.log("MW: " + req.body.middlewares)
+            if (typeof req.body.middlewares !== 'undefined') {
+                Middleware.findAll({ where: { id: req.body.middlewares } })
+                    .then(middlewares => {
+                        console.log("adding mw: " + middlewares)
+                        app.addMiddlewares(middlewares)
+                            .catch(err => {
+                                res.status(500).send({
+                                    message: err.message || "Some error occured while adding middlewares"
+                                });
+                            });
+                    })
+            }
+            return app;
+        })
+        .then(app => {
+            if (typeof req.body.owners !== 'undefined') {
+                console.log("Owners: " + req.body.owners)
+                User.findAll({ where: { id: req.body.owners } })
+                    .then(users => {
+                        app.addOwners(users)
+                            .catch(err => {
+                                res.status(500).send({
+                                    message: err.message || "Some error occured while adding owners"
+                                });
+                            });
+                    })
+            }
+            return app;
+        })
+        .then(app => {
+            if (typeof req.body.supports !== 'undefined') {
+                console.log("Supports" + req.body.supports)
+                User.findAll({ where: { id: req.body.supports } })
+                    .then(users => {
+                        app.addSupports(users)
+                            .catch(err => {
+                                res.status(500).send({
+                                    message: err.message || "Some error occured while adding owners"
+                                });
+                            });
+                    })
+            }
+            return app;
+        })
+        .then(app => {
+            if (typeof req.body.criticality !== 'undefined') {
+                console.log("Criticality: " + req.body.criticality)
+                Criticality.findOne({ where: { id: req.body.criticality } })
+                    .then(criticality => {
+                        app.setCriticality(criticality)
+                            .catch(err => {
+                                res.status(500).send({
+                                    message: err.message || "Some error occured while adding criticality"
+                                });
+                            });
+                    })
+            }
+            return app;
+        })
         .then(app => {
             //res.send(app);
             res.redirect('/app');
@@ -187,39 +187,40 @@ exports.findOne = (req, res) => {
 };
 
 exports.edit = (req, res) => {
-    App.findById({
-        where: { id: req.params.Id },
+    App.findById(req.params.Id, {
         include: [
             { model: Criticality },
-            { model: Middleware, as: 'Middlewares', include: [
-		{model: Server},
-		{model: User, as: 'CertResponsibles'}
-		] },
+            {
+                model: Middleware, as: 'Middlewares', include: [
+                    { model: Server },
+                    { model: User, as: 'CertResponsibles' }
+                ]
+            },
             { model: MSSQL, as: 'MSSQLs', include: [Server] },
             { model: Oracle, as: 'Oracles', include: [Server] },
             { model: User, as: 'Owners' },
             { model: User, as: 'Supports' }
         ]
     })
-    .then(app => {
-        if (!app) {
-            return res.status(404).send({
-                message: "Application not found with id (edit display)" + req.params.Id
-            });
-        }
-        res.render('appAdd', { title: 'Edit App', action: '/app/edit/' + req.params.Id, app: app, layout: 'layout-appAdd' });
-    })
-    .catch(err => {
-        if (err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "Error for app with id " + req.params.Id
-            });
-        }
+        .then(app => {
+            if (!app) {
+                return res.status(404).send({
+                    message: "Application not found with id (edit display)" + req.params.Id
+                });
+            }
+            res.render('appAdd', { title: 'Edit App', action: '/app/edit/' + req.params.Id, app: app, layout: 'layout-appAdd' });
+        })
+        .catch(err => {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).send({
+                    message: "Error for app with id " + req.params.Id
+                });
+            }
 
-        return res.status(500).send({
-            message: "Error retrieving App with id (edit display)" + req.params.Id + " err: " + JSON.stringify(err)
-        });
-    })
+            return res.status(500).send({
+                message: "Error retrieving App with id (edit display)" + req.params.Id + " err: " + JSON.stringify(err)
+            });
+        })
 };
 
 exports.modify = (req, res) => {
