@@ -1,15 +1,15 @@
 <form method="POST" action="/oracle/add">
     <table class="table table-bordered table-striped">
-    <tr><td>Business Critical Hours</td><td><input type="text" name="bch" /></td></tr>
-    <tr><td>DB Name</td><td><input type="text" name="dbName" /></td></tr>
+    <tr><td>Business Critical Hours</td><td><input type="text" name="bch" value="{{oracle.bch}}"/></td></tr>
+    <tr><td>DB Name</td><td><input type="text" name="dbName" value="{{oracle.dbName}}"/></td></tr>
     <tr><td>Server</td><td><select id="servers-list" name="server"></td></tr>
-    <tr><td>Environment</td><td><input type="text" name="environment" /></td></tr>
-    <tr><td>App Account</td><td><input type="text" name="appAccount" /></td></tr>
-    <tr><td>Owner Account</td><td><input type="text" name="ownerAccount" /></td></tr>
-    <tr><td>DB Jobs</td><td><input type="text" name="dbJobs" /></td></tr>
-    <tr><td>Knowed Issues</td><td><input type="text" name="knowedIssues" /></td></tr>
-    <tr><td>Frequent Requests</td><td><input type="text" name="frequenRequests" /></td></tr>
-    <tr><td>Crontabs</td><td><input type="text" name="crontabs" /></td></tr>
+    <tr><td>Environment</td><td><input type="text" name="environment" value="{{oracle.environment}}"/></td></tr>
+    <tr><td>App Account</td><td><input type="text" name="appAccount" value="{{oracle.appAccount}}"/></td></tr>
+    <tr><td>Owner Account</td><td><input type="text" name="ownerAccount" value="{{oracle.ownerAccount}}"/></td></tr>
+    <tr><td>DB Jobs</td><td><input type="text" name="dbJobs" value="{{oracle.dbJobs}}"/></td></tr>
+    <tr><td>Knowed Issues</td><td><input type="text" name="knowedIssues" value="{{oracle.knowedIssues}}"/></td></tr>
+    <tr><td>Frequent Requests</td><td><input type="text" name="frequenRequests" value="{{oracle.frequentRequests}}"/></td></tr>
+    <tr><td>Crontabs</td><td><input type="text" name="crontabs" value="{{oracle.crontabs}}"/></td></tr>
     <tr><td></td><td><input type="submit" /></td></tr>
   </table>
 </form>
