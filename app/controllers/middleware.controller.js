@@ -156,7 +156,6 @@ exports.edit = (req, res) => {
         ]
     })
         .then(middleware => {
-            console.log(JSON.stringify(middleware))
             if (!middleware) {
                 return res.status(404).send({
                     message: "Middleware not found with id (edit display)" + req.params.Id
