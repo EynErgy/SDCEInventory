@@ -35,7 +35,14 @@ no">
                     //dropdown.append('<option selected="true" disabled>Choose users</option>');
                     $.each(obj, function(key, entry){
                         console.log(entry);
-                        dropdown.append($('<option></option>').attr('value', entry.id).text(entry.server.serverName + ' : ' + entry.mwName));
+                        const middlewaresString = "{{middlewares}}"
+                        const middlewares = JSON.parse(middlewaresString.replace(/&quot;/g, '"'));
+                        const found = middlewares.some(el => el.id === entry.id);
+                        if (found) {
+                            dropdown.append($('<option></option>').attr('value', entry.id).attr('selected', "selected").text(entry.server.serverName + ' : ' + entry.mwName));
+                        } else {
+                            dropdown.append($('<option></option>').attr('value', entry.id).text(entry.server.serverName + ' : ' + entry.mwName));    
+                        }
                     })
                 },
                 error: function (obj, textstatus) {
@@ -53,7 +60,14 @@ no">
                     //dropdown.append('<option selected="true" disabled>Choose users</option>');
                     $.each(obj, function(key, entry){
                         console.log(entry);
-                        dropdown.append($('<option></option>').attr('value', entry.id).text(entry.server.serverName + ' : ' + entry.dbName));
+                        const mssqlsString = "{{mssqls}}"
+                        const mssqls = JSON.parse(mssqlsString.replace(/&quot;/g, '"'));
+                        const found = mssqls.some(el => el.id === entry.id);
+                        if (found) {
+                            dropdown.append($('<option></option>').attr('value', entry.id).attr('selected', "selected").text(entry.server.serverName + ' : ' + entry.dbName));
+                        } else {
+                            dropdown.append($('<option></option>').attr('value', entry.id).text(entry.server.serverName + ' : ' + entry.dbName));    
+                        }
                     })
                 },
                 error: function (obj, textstatus) {
@@ -71,7 +85,14 @@ no">
                     //dropdown.append('<option selected="true" disabled>Choose users</option>');
                     $.each(obj, function(key, entry){
                         console.log(entry);
-                        dropdown.append($('<option></option>').attr('value', entry.id).text(entry.server.serverName + ' : ' + entry.dbName));
+                        const oraclesString = "{{oracles}}"
+                        const oracles = JSON.parse(oraclesString.replace(/&quot;/g, '"'));
+                        const found = oracles.some(el => el.id === entry.id);
+                        if (found) {
+                            dropdown.append($('<option></option>').attr('value', entry.id).attr('selected', "selected").text(entry.server.serverName + ' : ' + entry.dbName));
+                        } else {
+                            dropdown.append($('<option></option>').attr('value', entry.id).text(entry.server.serverName + ' : ' + entry.dbName));    
+                        }
                     })
                 },
                 error: function (obj, textstatus) {
