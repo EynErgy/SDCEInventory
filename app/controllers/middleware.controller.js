@@ -226,6 +226,7 @@ exports.modify = (req, res) => {
             })
                 .then(mdw => {
                     if (typeof req.body.certificate !== 'undefined') {
+			console.log("users found");
                         // set new users
                         User.findAll({ where: { id: req.body.certificate } })
                             .then(users => {
@@ -239,9 +240,14 @@ exports.modify = (req, res) => {
                                     })
                             })
                     } else {
+			console.log("no user found");
                         // get current
-                        const curUsers = mdw.getCertResponsibles
-                        mdw.removeCertResponsibles(curUsers)
+                        mdw.getCertResponsibles()
+			.then(users => {
+				if (users){
+					 mdw.removeCertResponsibles(users)
+				}
+			});
                         Server.findOne({ where: { id: req.body.server } })
                             .then(server => {
                                 mdw.setServer(server);
