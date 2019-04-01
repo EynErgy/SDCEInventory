@@ -185,3 +185,71 @@ exports.findOne = (req, res) => {
             });
         })
 };
+
+exports.edit = (req, res) => {
+    App.findById({
+        where: { id: req.params.Id },
+        include: [
+            { model: Criticality },
+            { model: Middleware, as: 'Middlewares', include: [
+		{model: Server},
+		{model: User, as: 'CertResponsibles'}
+		] },
+            { model: MSSQL, as: 'MSSQLs', include: [Server] },
+            { model: Oracle, as: 'Oracles', include: [Server] },
+            { model: User, as: 'Owners' },
+            { model: User, as: 'Supports' }
+        ]
+    })
+    .then(app => {
+        if (!app) {
+            return res.status(404).send({
+                message: "Application not found with id (edit display)" + req.params.Id
+            });
+        }
+        res.render('appAdd', { title: 'Edit App', action: '/app/edit/' + req.params.Id, app: app, layout: 'layout-appAdd' });
+    })
+    .catch(err => {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Error for app with id " + req.params.Id
+            });
+        }
+
+        return res.status(500).send({
+            message: "Error retrieving App with id (edit display)" + req.params.Id + " err: " + JSON.stringify(err)
+        });
+    })
+};
+
+exports.modify = (req, res) => {
+    if (!req.body.appName) {
+        return res.status(400).send({
+            message: "App Name cannot be empty"
+        });
+    }
+
+    if (!req.body.appPurpose) {
+        return res.status(400).send({
+            message: "App Purpose cannot be empty"
+        });
+    }
+
+    if (!req.body.usersLocation) {
+        return res.status(400).send({
+            message: "App Users Location cannot be empty"
+        });
+    }
+
+    if (!req.body.businessImpact) {
+        return res.status(400).send({
+            message: "App Business Impact cannot be empty"
+        });
+    }
+
+    if (!req.body.technicalDetails) {
+        return res.status(400).send({
+            message: "App Technical Details cannot be empty"
+        });
+    }
+};

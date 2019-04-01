@@ -8,9 +8,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/add', function(req, res, next) {
-  res.render('appAdd', {title: 'Add App', layout: "layout-appAdd"});
+  res.render('appAdd', {title: 'Add App', layout: "layout-appAdd", action: '/app/add'});
 });
 router.post('/add', apps.create);
 router.get('/all', apps.findAll);
+router.get('/edit/:Id', apps.edit);
+router.post('/edit/:Id', apps.modify);
 
 module.exports = router;
