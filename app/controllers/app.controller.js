@@ -208,7 +208,7 @@ exports.edit = (req, res) => {
                     message: "Application not found with id (edit display)" + req.params.Id
                 });
             }
-            res.render('appAdd', { title: 'Edit App', action: '/app/edit/' + req.params.Id, app: app, layout: 'layout-appAdd' });
+            res.render('appAdd', { title: 'Edit App', action: '/app/edit/' + req.params.Id, app: app, layout: 'layout-appAdd', owners: JSON.stringify(app.Owners), supports: JSON.stringify(app.Supports) });
         })
         .catch(err => {
             if (err.kind === 'ObjectId') {
