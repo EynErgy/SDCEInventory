@@ -44,7 +44,7 @@ exports.create = (req, res) => {
             message: "Oracle knowedIssues cannot be empty"
         });
     }
-    if (!req.body.frequentRequests) {
+    if (!req.body.frequenRequests) {
         return res.status(400).send({
             message: "Oracle frequenRequests cannot be empty"
         });
@@ -59,11 +59,11 @@ exports.create = (req, res) => {
                 dbName: req.body.dbName,
                 environment: req.body.environment,
                 appAccount: req.body.appAccount,
-                ownerAccount: req.body.ownerAccount,
+                wnerAccount: req.body.ownerAccount,
                 dbJobs: req.body.dbJobs,
                 crontabs: req.body.crontabs,
                 knowedIssues: req.body.knowedIssues,
-                frequenRequests: req.body.frequentRequests
+                frequenRequests: req.body.frequenRequests
             })
             .then(oracle => {
                 oracle.setServer(server)
@@ -194,7 +194,7 @@ exports.modify = (req, res) => {
             message: "Oracle knowedIssues cannot be empty"
         });
     }
-    if (!req.body.frequentRequests) {
+    if (!req.body.frequenRequests) {
         return res.status(400).send({
             message: "Oracle frequenRequests cannot be empty"
         });
@@ -211,7 +211,7 @@ exports.modify = (req, res) => {
                 dbJobs: req.body.dbJobs,
                 crontabs: req.body.crontabs,
                 knowedIssues: req.body.knowedIssues,
-                frequenRequests: req.body.frequentRequests
+                frequenRequests: req.body.frequenRequests
             })
                 .then(obj => {
                     Server.findOne({ where: { id: req.body.server } })
@@ -221,11 +221,11 @@ exports.modify = (req, res) => {
                 })
         })
         .then(() => {
-            res.redirect('/mssql')
+            res.redirect('/oracle')
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occured while creating Middleware"
+                message: err.message || "Some error occured while creating Oracle"
             });
         });
 }

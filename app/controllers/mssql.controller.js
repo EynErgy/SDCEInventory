@@ -39,7 +39,7 @@ exports.create = (req, res) => {
         });
     }
 
-    if (!req.body.frequentRequests) {
+    if (!req.body.frequenRequests) {
         return res.status(400).send({
             message: "Mssql frequenRequests cannot be empty"
         });
@@ -62,7 +62,7 @@ exports.create = (req, res) => {
                     appAccount: req.body.appAccount,
                     dbJobs: req.body.dbJobs,
                     knowedIssues: req.body.knowedIssues,
-                    frequenRequests: req.body.frequentRequests,
+                    frequenRequests: req.body.frequenRequests,
                     specificities: req.body.specificities
                 })
                     .then(mssql => {
@@ -190,7 +190,7 @@ exports.modify = (req, res) => {
         });
     }
 
-    if (!req.body.frequentRequests) {
+    if (!req.body.frequenRequests) {
         return res.status(400).send({
             message: "Mssql frequenRequests cannot be empty"
         });
@@ -211,7 +211,7 @@ exports.modify = (req, res) => {
                 appAccount: req.body.appAccount,
                 dbJobs: req.body.dbJobs,
                 knowedIssues: req.body.knowedIssues,
-                frequenRequests: req.body.frequentRequests,
+                frequenRequests: req.body.frequenRequests,
                 specificities: req.body.specificities
             })
                 .then(obj => {
@@ -226,7 +226,7 @@ exports.modify = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occured while creating Middleware"
+                message: err.message || "Some error occured while creating Mssql"
             });
         });
 };
