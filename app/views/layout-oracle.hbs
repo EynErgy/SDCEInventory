@@ -42,7 +42,12 @@ no">
                             { "data": "dbJobs" },
                             { "data": "crontabs" },
                             { "data": "knowedIssues" },
-                            { "data": "frequenRequests" }
+                            { "data": "frequenRequests" },
+                            {
+                                "data": "id", "render": function (data, type, row, meta) {
+                                    return '<a href="/mssql/edit/' + data + '">Edit</a>'
+                                }
+                            }
                         ]
                     });
                 },
