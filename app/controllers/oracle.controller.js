@@ -44,7 +44,7 @@ exports.create = (req, res) => {
             message: "Oracle knowedIssues cannot be empty"
         });
     }
-    if (!req.body.frequenRequests) {
+    if (!req.body.frequentRequests) {
         return res.status(400).send({
             message: "Oracle frequenRequests cannot be empty"
         });
@@ -63,7 +63,7 @@ exports.create = (req, res) => {
                 dbJobs: req.body.dbJobs,
                 crontabs: req.body.crontabs,
                 knowedIssues: req.body.knowedIssues,
-                frequenRequests: req.body.frequenRequests
+                frequenRequests: req.body.frequentRequests
             })
             .then(oracle => {
                 oracle.setServer(server)
@@ -194,7 +194,7 @@ exports.modify = (req, res) => {
             message: "Oracle knowedIssues cannot be empty"
         });
     }
-    if (!req.body.frequenRequests) {
+    if (!req.body.frequentRequests) {
         return res.status(400).send({
             message: "Oracle frequenRequests cannot be empty"
         });
@@ -211,7 +211,7 @@ exports.modify = (req, res) => {
                 dbJobs: req.body.dbJobs,
                 crontabs: req.body.crontabs,
                 knowedIssues: req.body.knowedIssues,
-                frequenRequests: req.body.frequenRequests
+                frequenRequests: req.body.frequentRequests
             })
                 .then(obj => {
                     Server.findOne({ where: { id: req.body.server } })

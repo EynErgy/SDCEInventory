@@ -39,7 +39,7 @@ exports.create = (req, res) => {
         });
     }
 
-    if (!req.body.frequenRequests) {
+    if (!req.body.frequentRequests) {
         return res.status(400).send({
             message: "Mssql frequenRequests cannot be empty"
         });
@@ -62,7 +62,7 @@ exports.create = (req, res) => {
                     appAccount: req.body.appAccount,
                     dbJobs: req.body.dbJobs,
                     knowedIssues: req.body.knowedIssues,
-                    frequenRequests: req.body.frequenRequests,
+                    frequenRequests: req.body.frequentRequests,
                     specificities: req.body.specificities
                 })
                     .then(mssql => {
@@ -190,7 +190,7 @@ exports.modify = (req, res) => {
         });
     }
 
-    if (!req.body.frequenRequests) {
+    if (!req.body.frequentRequests) {
         return res.status(400).send({
             message: "Mssql frequenRequests cannot be empty"
         });
@@ -211,7 +211,7 @@ exports.modify = (req, res) => {
                 appAccount: req.body.appAccount,
                 dbJobs: req.body.dbJobs,
                 knowedIssues: req.body.knowedIssues,
-                frequenRequests: req.body.frequenRequests,
+                frequenRequests: req.body.frequentRequests,
                 specificities: req.body.specificities
             })
                 .then(obj => {
