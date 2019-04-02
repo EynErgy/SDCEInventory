@@ -258,4 +258,119 @@ exports.modify = (req, res) => {
             message: "App Technical Details cannot be empty"
         });
     }
+
+    App.findById(req.params.Id, {
+        include: [
+            { model: Criticality },
+            {
+                model: Middleware, as: 'Middlewares', include: [
+                    { model: Server },
+                    { model: User, as: 'CertResponsibles' }
+                ]
+            },
+            { model: MSSQL, as: 'MSSQLs', include: [Server] },
+            { model: Oracle, as: 'Oracles', include: [Server] },
+            { model: User, as: 'Owners' },
+            { model: User, as: 'Supports' }
+        ]
+    })
+    .then(app => {
+        app.update({
+            appName: req.body.appName,
+            appPurpose: req.body.appPurpose,
+            usersLocation: req.body.usersLocation,
+            businessImpact: req.body.businessImpact,
+            technicalDetails: req.body.technicalDetails
+        })
+        .then(obj => {
+            var promises = [];
+            // check criticality
+            promises.push(Criticality.findOne({ where: { id: req.body.criticality } })
+            .then(crit => {
+                obj.setCriticality(crit)
+                return obj
+            }))
+            // check owners
+            if (typeof req.body.owners !== 'undefined'){
+                promises.push(Users.findAll({ where: { id: req.body.owners } })
+                .then(users => {
+                    obj.setOwners(users)
+                }))
+            } else {
+                promises.push(obj.getOwners()
+                .then(users => {
+                    if (users) {
+                        obj.removeOwners(users)
+                    }
+                }))
+            }
+            // check supports
+            if (typeof req.body.supports !== 'undefined'){
+                promises.push(Users.findAll({ where: { id: req.body.supports } })
+                .then(users => {
+                    obj.setSupports(users)
+                }))
+            } else {
+                promises.push(obj.getSupports()
+                .then(users => {
+                    if (users) {
+                        obj.removeSupports(users)
+                    }
+                }))
+            }
+            // check mw
+            if (typeof req.body.middlewares !== 'undefined'){
+                promises.push(Middleware.findAll({ where: { id: req.body.middleware } })
+                .then(results => {
+                    obj.setMiddlewares(results)
+                }))
+            } else {
+                promises.push(obj.getMiddlewares()
+                .then(results => {
+                    if (results) {
+                        obj.removeMiddlewares(results)
+                    }
+                }))
+            }
+            // check mssql
+            if (typeof req.body.mssqls !== 'undefined'){
+                promises.push(MSSQL.findAll({ where: { id: req.body.mssqls } })
+                .then(results => {
+                    obj.setMSSQLs(results)
+                }))
+            } else {
+                promises.push(obj.getMSSQLs()
+                .then(results => {
+                    if (results) {
+                        obj.removeMSSQLs(results)
+                    }
+                }))
+            }
+            // check oracle
+            if (typeof req.body.oracles !== 'undefined'){
+                promises.push(Oracle.findAll({ where: { id: req.body.oracles } })
+                .then(results => {
+                    obj.setOracles(results)
+                }))
+            } else {
+                promises.push(obj.getOracles()
+                .then(results => {
+                    if (results) {
+                        obj.removeOracles(results)
+                    }
+                }))
+            }
+
+            // execute all
+            Promise.all(promises)
+            .then(() => {
+                res.redirect('/app')
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occured while updating Application" 
+                });
+            });
+        })
+    })
 };
