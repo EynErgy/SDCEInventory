@@ -292,7 +292,7 @@ exports.modify = (req, res) => {
             }))
             // check owners
             if (typeof req.body.owners !== 'undefined'){
-                promises.push(Users.findAll({ where: { id: req.body.owners } })
+                promises.push(User.findAll({ where: { id: req.body.owners } })
                 .then(users => {
                     obj.setOwners(users)
                 }))
@@ -306,7 +306,7 @@ exports.modify = (req, res) => {
             }
             // check supports
             if (typeof req.body.supports !== 'undefined'){
-                promises.push(Users.findAll({ where: { id: req.body.supports } })
+                promises.push(User.findAll({ where: { id: req.body.supports } })
                 .then(users => {
                     obj.setSupports(users)
                 }))
