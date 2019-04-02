@@ -205,10 +205,15 @@ exports.edit = (req, res) => {
         .then(app => {
             if (!app) {
                 return res.status(404).send({
-                    message: "Application not found with id (edit display)" + req.params.Id
+                    message: "Application not found with id (edit display) " + req.params.Id
                 });
             }
-            res.render('appAdd', { title: 'Edit App', action: '/app/edit/' + req.params.Id, app: app, layout: 'layout-appAdd', owners: JSON.stringify(app.Owners), supports: JSON.stringify(app.Supports), middlewares: JSON.stringify(app.Middlewares), mssqls: JSON.stringify(app.MSSQLs), oracles: JSON.stringify(Oracles) });
+            res.render('appAdd', { title: 'Edit App', action: '/app/edit/' + req.params.Id, app: app, layout: 'layout-appAdd', 
+            owners: JSON.stringify(app.Owners), 
+            supports: JSON.stringify(app.Supports), 
+            middlewares: JSON.stringify(app.Middlewares), 
+            mssqls: JSON.stringify(app.MSSQLs), 
+            oracles: JSON.stringify(app.Oracles) });
         })
         .catch(err => {
             if (err.kind === 'ObjectId') {
@@ -218,7 +223,7 @@ exports.edit = (req, res) => {
             }
 
             return res.status(500).send({
-                message: "Error retrieving App with id (edit display)" + req.params.Id + " err: " + JSON.stringify(err)
+                message: "Error retrieving App with id (edit display) " + req.params.Id + " err: " + JSON.stringify(err)
             });
         })
 };
