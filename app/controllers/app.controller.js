@@ -319,8 +319,9 @@ exports.modify = (req, res) => {
                 }))
             }
             // check mw
+		console.log("selected MW: " + req.body.middlewares);
             if (typeof req.body.middlewares !== 'undefined'){
-                promises.push(Middleware.findAll({ where: { id: req.body.middleware } })
+                promises.push(Middleware.findAll({ where: { id: req.body.middlewares } })
                 .then(results => {
                     obj.setMiddlewares(results)
                 }))
