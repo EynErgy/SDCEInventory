@@ -34,11 +34,15 @@ no">
                     //dropdown.append('<option selected="true" disabled>Choose users</option>');
                     $.each(obj, function (key, entry) {
                         const usersString = "{{users}}";
-                        const users = JSON.parse(usersString.replace(/&quot;/g, '"'));
-                        console.log(users);
-                        const found = users.some(el => el.id === entry.id);
-                        if (found) {
-                            dropdown.append($('<option></option>').attr('value', entry.id).attr('selected', "selected").text(entry.fullName));
+                        if (usersString != "") {
+                            const users = JSON.parse(usersString.replace(/&quot;/g, '"'));
+                            console.log(users);
+                            const found = users.some(el => el.id === entry.id);
+                            if (found) {
+                                dropdown.append($('<option></option>').attr('value', entry.id).attr('selected', "selected").text(entry.fullName));
+                            } else {
+                                dropdown.append($('<option></option>').attr('value', entry.id).text(entry.fullName));
+                            }
                         } else {
                             dropdown.append($('<option></option>').attr('value', entry.id).text(entry.fullName));
                         }
