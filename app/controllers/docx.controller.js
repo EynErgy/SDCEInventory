@@ -23,6 +23,7 @@ exports.sdce = (req, res) => {
     doc.loadZip(zip);
     const appId = req.params.appId;
     console.log("App id: " + req.params.appId);
+    var fileNameString = "Test";
     App.findOne({
         where: { id: appId },
         include: [
@@ -42,6 +43,7 @@ exports.sdce = (req, res) => {
             var servers = [];
             var owners = [];
             var supports = [];
+            fileNameString = app.id + '_' + app.appName;
             app.Middlewares.forEach(middleware => {
                 console.log(middleware)
                 var certResps = [];
@@ -222,7 +224,8 @@ exports.sdce = (req, res) => {
                 .generate({ type: 'base64' })
         })
         .then(buf => {
-            res.setHeader("Content-Disposition", "attachment; filename=Test.docx");
+            const fileName = fileNameString.replace(/[a-z0-9]/gi, '_').toLowerCase();
+            res.setHeader("Content-Disposition", "attachment; filename=" + fileName);
             res.send(Buffer.from(buf, "base64"));
         })
 }
