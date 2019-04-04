@@ -226,7 +226,7 @@ exports.sdce = (req, res) => {
         .then(buf => {
 		console.log("filename: " + fileNameString);
             const fileName = fileNameString.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-            res.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+            res.setHeader("Content-Disposition", "attachment; filename=" + fileName + '.docx');
             res.send(Buffer.from(buf, "base64"));
         })
 }
