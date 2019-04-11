@@ -59,7 +59,7 @@ exports.create = (req, res) => {
                 dbName: req.body.dbName,
                 environment: req.body.environment,
                 appAccount: req.body.appAccount,
-                wnerAccount: req.body.ownerAccount,
+                ownerAccount: req.body.ownerAccount,
                 dbJobs: req.body.dbJobs,
                 crontabs: req.body.crontabs,
                 knowedIssues: req.body.knowedIssues,
