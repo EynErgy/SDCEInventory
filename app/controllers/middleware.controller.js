@@ -114,7 +114,8 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     Middleware.findAll({
-        include: [Server]
+        include: [Server],
+        order: [['mwName', 'ASC']]
     })
         .then(Middlewares => {
             //console.log(Middlewares);

@@ -68,6 +68,12 @@ exports.create = (req, res) => {
         });
     }
 
+    if (!req.body.downtime) {
+        return res.status(400).send({
+            message: "Downtime Window cannot be empty"
+        });
+    }
+
     Server.create({
         serverName: req.body.serverName,
         environment: req.body.environment,
@@ -81,7 +87,8 @@ exports.create = (req, res) => {
         adminGroup: req.body.adminGroup,
         description: req.body.description,
         functionality: req.body.functionality,
-        startup: req.body.startup
+        startup: req.body.startup,
+        downtime: req.body.downtime
     })
         .then(server => {
             //res.send(server);
@@ -95,7 +102,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Server.findAll()
+    Server.findAll({order:[['serverName', 'ASC']]})
         .then(Servers => {
             res.send(Servers);
             //console.log(Servers);
@@ -219,6 +226,12 @@ exports.modify = (req, res) => {
         });
     }
 
+    if (!req.body.downtime) {
+        return res.status(400).send({
+            message: "Downtime indow cannot be empty"
+        });
+    }
+
     Server.findById(req.params.serverId)
         .then(server => {
             if (!server) {
@@ -239,7 +252,8 @@ exports.modify = (req, res) => {
                 adminGroup: req.body.adminGroup,
                 description: req.body.description,
                 functionality: req.body.functionality,
-                startup: req.body.startup
+                startup: req.body.startup,
+                downtime: req.body.downtime
             })
                 .then(() => {
                     res.redirect('/server');

@@ -87,6 +87,12 @@ module.exports = (sequelize, Sequelize) => {
             unique: false,
             allowNull: false,
             comment: "Startup Order"
+        },
+        downtime: {
+            type: Sequelize.STRING,
+            unique: false,
+            allowNull: false,
+            comment: "Downtime Window"
         }
     });
 

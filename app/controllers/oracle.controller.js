@@ -92,7 +92,8 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     Oracle.findAll({
-        include: [Server]
+        include: [Server],
+        order: [['dbName', 'ASC']]
     })
         .then(Oracles => {
             res.send(Oracles);

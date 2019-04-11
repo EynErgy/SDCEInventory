@@ -92,7 +92,8 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
     Mssql.findAll({
-        include: [Server]
+        include: [Server],
+        order: [['dbName', 'ASC']]
     })
         .then(Mssqls => {
             res.send(Mssqls);

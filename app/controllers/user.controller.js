@@ -37,7 +37,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    User.findAll()
+    User.findAll({order: [['fullName', 'ASC']]})
         .then(Users => {
             res.send(Users);
             //console.log(Users);
@@ -121,8 +121,8 @@ exports.modify = (req, res) => {
             }
             user.update({
                 fullName: req.body.fullName,
-        email: req.body.email,
-        phone: req.body.phone
+                email: req.body.email,
+                phone: req.body.phone
             })
                 .then(() => {
                     res.redirect('/user');

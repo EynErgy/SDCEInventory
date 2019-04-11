@@ -153,7 +153,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    App.findAll()
+    App.findAll({order:[['appName', 'ASC']]})
         .then(Apps => {
             res.send(Apps);
             //console.log(Apps);

@@ -30,7 +30,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Criticality.findAll()
+    Criticality.findAll({order: [['level', 'ASC']]})
         .then(Criticalitys => {
             res.send(Criticalitys);
             //console.log(Criticalitys);
