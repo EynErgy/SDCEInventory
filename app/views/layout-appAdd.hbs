@@ -38,7 +38,7 @@ no">
                         console.log(entry);
                         const rawString = "{{middlewares}}"
                         const middlewaresString = rawString.escapeSpecialChars();
-                        console.log("String: " + middlewaresString);
+                        console.log("String: " + middlewaresString.replace(/&quot;/g, '"'));
                         if (middlewaresString != "") {
                             const middlewares = JSON.parse(middlewaresString.replace(/&quot;/g, '"'));
                             const found = middlewares.some(el => el.id === entry.id);
