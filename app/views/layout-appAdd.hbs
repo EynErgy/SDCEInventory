@@ -15,6 +15,7 @@ no">
 <body>
     {{> header }} {{{body}}}
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/public/js/std.js"></script>
     <script src="/assets/vendor/jquery/jquery.min.js"></script>
     <script src="/assets/vendor/popper.js/popper.min.js"></script>
     <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -35,7 +36,8 @@ no">
                     //dropdown.append('<option selected="true" disabled>Choose users</option>');
                     $.each(obj, function (key, entry) {
                         console.log(entry);
-                        const middlewaresString = "{{middlewares}}"
+                        const rawString = "{{middlewares}}"
+                        const middlewaresString = rawString.escapeSpecialChars();
                         console.log("String: " + middlewaresString);
                         if (middlewaresString != "") {
                             const middlewares = JSON.parse(middlewaresString.replace(/&quot;/g, '"'));
