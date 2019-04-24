@@ -1,11 +1,10 @@
-String.prototype.escapeSpecialChars = function() {
-    return this.replace(/\\n/g, "\\n")
-               .replace(/\\'/g, "\\'")
-               .replace(/\\"/g, '\\"')
-               .replace(/\\&/g, "\\&")
-               .replace(/\\r/g, "\\r")
-               .replace(/\\t/g, "\\t")
-               .replace(/\\b/g, "\\b")
-               .replace(/\\f/g, "\\f")
-               .replace(/\\/g, "\\");
+String.prototype.escapeSpecialChars = function () {
+    return this.replace(/\\/g, "\\\\")
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r")
+        .replace(/\t/g, "\\t")
+        .replace(/\f/g, "\\f")
+        .replace(/"/g, "\\\"")
+        .replace(/'/g, "\\\'")
+        .replace(/\&/g, "\\&");
 };
