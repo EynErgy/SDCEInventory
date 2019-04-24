@@ -6,5 +6,5 @@ String.prototype.escapeSpecialChars = function () {
         .replace(/\f/g, "\\f")
         .replace(/"/g, "\\\"")
         .replace(/'/g, "\\\'")
-        .replace(/\&/g, "\\&");
+//        .replace(/\&/g, "\\&");
 };
