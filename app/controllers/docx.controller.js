@@ -56,15 +56,27 @@ exports.sdce = (req, res) => {
                     for (var i = 0; i < servers.length; i++) {
                         if (servers[i].Server_Name === middleware.server.serverName) {
                             console.log("add property");
-                            servers[i].middlewares.push({
-                                Middleware_Name: middleware.mwName,
-                                Middleware_StartRequirements: middleware.startRequirements,
-                                Middleware_NonStdConfigs: middleware.nonStdConfig,
-                                Middleware_DataPath: middleware.dataPath,
-                                Middleware_KnownedErrors: middleware.knowedIssues,
-                                Middleware_Connections: middleware.connections,
-                                Middleware_Certificates: certResps.join(', ')
-                            });
+                            if (typeof servers[i].middlewares === 'undefined'){
+                                servers[i].middlewares = [{
+                                    Middleware_Name: middleware.mwName,
+                                    Middleware_StartRequirements: middleware.startRequirements,
+                                    Middleware_NonStdConfigs: middleware.nonStdConfig,
+                                    Middleware_DataPath: middleware.dataPath,
+                                    Middleware_KnownedErrors: middleware.knowedIssues,
+                                    Middleware_Connections: middleware.connections,
+                                    Middleware_Certificates: certResps.join(', ')
+                                }];
+                            } else {
+                                servers[i].middlewares.push({
+                                    Middleware_Name: middleware.mwName,
+                                    Middleware_StartRequirements: middleware.startRequirements,
+                                    Middleware_NonStdConfigs: middleware.nonStdConfig,
+                                    Middleware_DataPath: middleware.dataPath,
+                                    Middleware_KnownedErrors: middleware.knowedIssues,
+                                    Middleware_Connections: middleware.connections,
+                                    Middleware_Certificates: certResps.join(', ')
+                                });
+                            }
                         }
                     }
                 } else {
@@ -100,16 +112,29 @@ exports.sdce = (req, res) => {
                     for (var i = 0; i < servers.length; i++) {
                         if (servers[i].Server_Name === mssql.server.serverName) {
                             console.log("add property");
-                            servers[i].mssqls_dbs.push({ 
-                                MSSQL_DBName: mssql.dbName,
-                                MSSQL_BCH: mssql.bch,
-                                MSSQL_Environment: mssql.environment,
-                                MSSQL_AppAccount: mssql.appAccount,
-                                MSSQL_DBJobs: mssql.dbJobs,
-                                MSSQL_KnownedIssues: mssql.knowedIssues,
-                                MSSQL_FrequentRequests: mssql.frequenRequests,
-                                MSSQL_Specificities: mssql.specificities
-                            })
+                            if (typeof servers[i].mssqls_dbs === 'undefined'){
+                                servers[i].mssqls_dbs = [{ 
+                                    MSSQL_DBName: mssql.dbName,
+                                    MSSQL_BCH: mssql.bch,
+                                    MSSQL_Environment: mssql.environment,
+                                    MSSQL_AppAccount: mssql.appAccount,
+                                    MSSQL_DBJobs: mssql.dbJobs,
+                                    MSSQL_KnownedIssues: mssql.knowedIssues,
+                                    MSSQL_FrequentRequests: mssql.frequenRequests,
+                                    MSSQL_Specificities: mssql.specificities
+                                }]
+                            } else {
+                                servers[i].mssqls_dbs.push({ 
+                                    MSSQL_DBName: mssql.dbName,
+                                    MSSQL_BCH: mssql.bch,
+                                    MSSQL_Environment: mssql.environment,
+                                    MSSQL_AppAccount: mssql.appAccount,
+                                    MSSQL_DBJobs: mssql.dbJobs,
+                                    MSSQL_KnownedIssues: mssql.knowedIssues,
+                                    MSSQL_FrequentRequests: mssql.frequenRequests,
+                                    MSSQL_Specificities: mssql.specificities
+                                })
+                            }
                         }
                     }
                 } else {
@@ -146,17 +171,31 @@ exports.sdce = (req, res) => {
                     for (var i = 0; i < servers.length; i++) {
                         if (servers[i].Server_Name === oracle.server.serverName) {
                             console.log("add property");
-                            servers[i].oracles_dbs.push({ 
-                                Oracle_DBName: oracle.dbName, 
-                                Oracle_AppAccount: oracle.appAccount,
-                                Oracle_Environment: oracle.environment,
-                                Oracle_OwnerAccount: oracle.ownerAccount,
-                                Oracle_DBJobs: oracle.dbJobs,
-                                Oracle_Crontabs: oracle.crontabs,
-                                Oracle_KnownedIssues: oracle.knowedIssues,
-                                Oracle_FrequentRequests: oracle.frequenRequests,
-                                Oracle_BCH: oracle.bch
-                            })
+                            if (typeof servers[i].oracles_dbs === 'undefined'){
+                                servers[i].oracles_dbs = [{ 
+                                    Oracle_DBName: oracle.dbName, 
+                                    Oracle_AppAccount: oracle.appAccount,
+                                    Oracle_Environment: oracle.environment,
+                                    Oracle_OwnerAccount: oracle.ownerAccount,
+                                    Oracle_DBJobs: oracle.dbJobs,
+                                    Oracle_Crontabs: oracle.crontabs,
+                                    Oracle_KnownedIssues: oracle.knowedIssues,
+                                    Oracle_FrequentRequests: oracle.frequenRequests,
+                                    Oracle_BCH: oracle.bch
+                                }]
+                            } else {
+                                servers[i].oracles_dbs.push({ 
+                                    Oracle_DBName: oracle.dbName, 
+                                    Oracle_AppAccount: oracle.appAccount,
+                                    Oracle_Environment: oracle.environment,
+                                    Oracle_OwnerAccount: oracle.ownerAccount,
+                                    Oracle_DBJobs: oracle.dbJobs,
+                                    Oracle_Crontabs: oracle.crontabs,
+                                    Oracle_KnownedIssues: oracle.knowedIssues,
+                                    Oracle_FrequentRequests: oracle.frequenRequests,
+                                    Oracle_BCH: oracle.bch
+                                })
+                            }
                         }
                     }
                 } else {
