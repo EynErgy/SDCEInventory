@@ -11,6 +11,7 @@ const DocxTemplater = require('docxtemplater');
 const fs = require('fs');
 const path = require('path');
 
+
 exports.test = (req, res) => {
 
 }
@@ -270,10 +271,17 @@ exports.sdce = (req, res) => {
         })
 }
 
+exports.sdceAll = (req, res) => {
+
+}
+
 exports.xlsServer = (req, res) => {
     console.log('Generating Excel document per Server');
     Server.findAll()
     .then(servers => {
         console.log(JSON.stringify(servers));
+        servers.forEach(server => {
+            console.log(server.serverName);
+        });
     })
 }
