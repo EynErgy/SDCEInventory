@@ -287,7 +287,7 @@ exports.xlsServer = (req, res) => {
         ]
     })
     .then(servers => {
-        var rows = [];
+        var rows = [['Server Name','Application Name']];
         //console.log(JSON.stringify(servers));
         servers.forEach(server => {
             console.log(server.serverName);
@@ -331,6 +331,6 @@ exports.xlsServer = (req, res) => {
     .then(rows => {
         var buffer = xlsx.build([{name: "Listing", data: rows}]);
         res.setHeader("Content-Disposition", "attachment; filename=" + "seversAppsList" + '.xlsx');
-        res.send(Buffer.from(buf, "base64"));
+        res.send(Buffer.from(buffer, "base64"));
     })
 }
