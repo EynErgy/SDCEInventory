@@ -286,15 +286,40 @@ exports.xlsServer = (req, res) => {
         ]
     })
     .then(servers => {
-        console.log(JSON.stringify(servers));
+        //console.log(JSON.stringify(servers));
         servers.forEach(server => {
             console.log(server.serverName);
             if (typeof server.Middlewares !== 'undefined'){
                 server.Middlewares.forEach(middleware =>{
-                    console.log(middleware.server.serverName);
+                   if (typeof middleware.MWApplications !== 'undefined'){
+			//console.log(middleware.MWApplications);
+			middleware.MWApplications.forEach(application =>{
+				console.log(application.appName);
+			})
+		   } 
+                })
+            }
+            if (typeof server.Oracles !== 'undefined'){
+                server.Oracles.forEach(oracle =>{
+                   if (typeof oracle.OraclesApplications !== 'undefined'){
+                        //console.log(middleware.MWApplications);
+                        oracle.OraclesApplications.forEach(application =>{
+                                console.log(application.appName);
+                        })
+                   }
+                })
+            }
+            if (typeof server.MSSQLs !== 'undefined'){
+                server.MSSQLs.forEach(mssql =>{
+                   if (typeof mssql.MSSQLApplications !== 'undefined'){
+                        //console.log(middleware.MWApplications);
+                        mssql.MSSQLApplications.forEach(application =>{
+                                console.log(application.appName);
+                        })
+                   }
                 })
             }
         });
-        console.log(servers);
+        //console.log(servers);
     })
 }
