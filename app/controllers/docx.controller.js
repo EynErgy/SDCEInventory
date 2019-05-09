@@ -277,11 +277,12 @@ exports.sdceAll = (req, res) => {
 
 exports.xlsServer = (req, res) => {
     console.log('Generating Excel document per Server');
-    Server.findAll()
+    Server.findAll({order:[['serverName', 'ASC']]})
     .then(servers => {
         console.log(JSON.stringify(servers));
         servers.forEach(server => {
             console.log(server.serverName);
         });
+        console.log(servers);
     })
 }
