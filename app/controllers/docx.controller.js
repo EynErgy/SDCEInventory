@@ -289,6 +289,11 @@ exports.xlsServer = (req, res) => {
         console.log(JSON.stringify(servers));
         servers.forEach(server => {
             console.log(server.serverName);
+            if (typeof server.Middlewares !== 'undefined'){
+                server.Middlewares.forEach(middleware =>{
+                    console.log(middleware.server.serverName);
+                })
+            }
         });
         console.log(servers);
     })
