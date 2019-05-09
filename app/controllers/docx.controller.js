@@ -10,6 +10,7 @@ const JSZip = require('jszip');
 const DocxTemplater = require('docxtemplater');
 const fs = require('fs');
 const path = require('path');
+const xlsx = require('node-xlsx');
 
 
 exports.test = (req, res) => {
@@ -286,6 +287,7 @@ exports.xlsServer = (req, res) => {
         ]
     })
     .then(servers => {
+        var rows = [];
         //console.log(JSON.stringify(servers));
         servers.forEach(server => {
             console.log(server.serverName);
@@ -294,7 +296,8 @@ exports.xlsServer = (req, res) => {
                    if (typeof middleware.MWApplications !== 'undefined'){
 			//console.log(middleware.MWApplications);
 			middleware.MWApplications.forEach(application =>{
-				console.log(application.appName);
+                console.log(application.appName);
+                rows.push([server.serverName,application.appName]);
 			})
 		   } 
                 })
@@ -305,6 +308,7 @@ exports.xlsServer = (req, res) => {
                         //console.log(middleware.MWApplications);
                         oracle.OraclesApplications.forEach(application =>{
                                 console.log(application.appName);
+                                rows.push([server.serverName,application.appName]);
                         })
                    }
                 })
@@ -315,11 +319,18 @@ exports.xlsServer = (req, res) => {
                         //console.log(middleware.MWApplications);
                         mssql.MSSQLApplications.forEach(application =>{
                                 console.log(application.appName);
+                                rows.push([server.serverName,application.appName]);
                         })
                    }
                 })
             }
         });
         //console.log(servers);
+        return rows;
+    })
+    .then(rows => {
+        var buffer = xlsx.build([{name: "Listing", data: rows}]);
+        res.setHeader("Content-Disposition", "attachment; filename=" + "seversAppsList" + '.xlsx');
+        res.send(Buffer.from(buf, "base64"));
     })
 }
