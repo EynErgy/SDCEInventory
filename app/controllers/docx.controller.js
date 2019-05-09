@@ -269,3 +269,11 @@ exports.sdce = (req, res) => {
             res.send(Buffer.from(buf, "base64"));
         })
 }
+
+exports.xlsServer = (req, res) => {
+    console.log('Generating Excel document per Server');
+    Server.findAll()
+    .then(servers => {
+        console.log(JSON.stringify(servers));
+    })
+}

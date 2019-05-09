@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/add', function(req, res, next) {
-  res.render('oracleAdd', {title: 'Add User', layout: "layout-oracleAdd", action: '/oracle/add'});
+  res.render('oracleAdd', {title: 'Add Oracle', layout: "layout-oracleAdd", action: '/oracle/add'});
 });
 router.post('/add', oracles.create);
 router.get('/all', oracles.findAll);
