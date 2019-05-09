@@ -287,7 +287,7 @@ exports.xlsServer = (req, res) => {
         ]
     })
     .then(servers => {
-        var rows = [['Server Name','Application Name']];
+        var rows = [['ID','Server Name','Application Name']];
         //console.log(JSON.stringify(servers));
         servers.forEach(server => {
             console.log(server.serverName);
@@ -297,7 +297,7 @@ exports.xlsServer = (req, res) => {
 			//console.log(middleware.MWApplications);
 			middleware.MWApplications.forEach(application =>{
                 console.log(application.appName);
-                rows.push([server.serverName,application.appName]);
+                rows.push([application.id,server.serverName,application.appName]);
 			})
 		   } 
                 })
@@ -308,7 +308,7 @@ exports.xlsServer = (req, res) => {
                         //console.log(middleware.MWApplications);
                         oracle.OraclesApplications.forEach(application =>{
                                 console.log(application.appName);
-                                rows.push([server.serverName,application.appName]);
+                                rows.push([application.id,server.serverName,application.appName]);
                         })
                    }
                 })
@@ -319,7 +319,7 @@ exports.xlsServer = (req, res) => {
                         //console.log(middleware.MWApplications);
                         mssql.MSSQLApplications.forEach(application =>{
                                 console.log(application.appName);
-                                rows.push([server.serverName,application.appName]);
+                                rows.push([application.id,server.serverName,application.appName]);
                         })
                    }
                 })
