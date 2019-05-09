@@ -280,7 +280,9 @@ exports.xlsServer = (req, res) => {
     Server.findAll({
         order:[['serverName', 'ASC']],
         include: [
-            {model: Middleware}
+            {model: Middleware, as: 'Middlewares', include: [{model: App, as :'MWApplications'}]},
+            {model: Oracle, as: 'Oracles', include: [{model: App, as :'OraclesApplications'}]},
+            {model: MSSQL, as: 'MSSQLs', include: [{model: App, as :'MSSQLApplications'}]}
         ]
     })
     .then(servers => {
