@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
             comment: "Application Name"
         },
         appPurpose:{
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             unique: false,
             allowNull: false,
             comment: "Purpose"
@@ -26,13 +26,13 @@ module.exports = (sequelize, Sequelize) => {
             comment: "Users Location"
         },
         businessImpact:{
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             unique: false,
             allowNull: false,
             comment: "Business Impact"
         },
         technicalDetails:{
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             unique: false,
             allowNull: false,
             comment: "Technical details"
