@@ -243,6 +243,7 @@ exports.sdce = (req, res) => {
                     Support_Phone: user.phone
                 });
             });
+            doc.setOptions({linebreaks: true});
             doc.setData({
                 App_Name: app.appName,
                 App_Purpose: app.appPurpose,
