@@ -30,6 +30,8 @@ no">
                 dataType: 'json',
                 success: function (obj, textstatus) {
                     var table = $('#mssqlssList').DataTable({
+			dom: 'Bfrtip',
+			buttons: ['csv', 'excel'],
                         "pageLength": 50,
                         "processing": true,
                         "data": obj,
