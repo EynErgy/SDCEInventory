@@ -71,6 +71,7 @@ app.use('/assets/vendor/feather-icons', express.static(path.join(__dirname, 'nod
 app.use('/assets/vendor/datatables.net', express.static(path.join(__dirname, 'node_modules', 'datatables.net', 'js')));
 app.use('/assets/vendor/datatables.net-bs4', express.static(path.join(__dirname, 'node_modules', 'datatables.net-bs4', 'js')));
 app.use('/assets/vendor/datatables.net-bs4_css', express.static(path.join(__dirname, 'node_modules', 'datatables.net-bs4', 'css')));
+app.use('/assets/vendor/datatables.net-buttons', express.static(path.join(__dirname, 'node_modules', 'datatables.net-buttons', 'js')));
 
 // routes here
 app.use('/', indexRouter);
