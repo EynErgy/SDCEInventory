@@ -10,7 +10,7 @@
   "author": "Nicolas Rosa",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "bootstrap": "^4.3.1",
     "cookie-parser": "^1.4.4",
     "datatables.net": "^1.10.19",
@@ -18,7 +18,7 @@
     "datatables.net-buttons": "^1.5.6",
     "docxtemplater": "^3.10.1",
     "dotenv": "^6.2.0",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "feather-icons": "^4.21.0",
     "fs-extra": "^7.0.1",
     "hbs": "^4.0.4",
